@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>SDC! Summer Design Camp 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange:      #FF8200;
+  --orange-dk:   #C86000;
+  --orange-pale: #FFF3E6;
+  --orange-mid:  rgba(255,130,0,0.14);
+
+  --white:  #FFFFFF;
+  --off:    #F6F3EE;
+  --cream:  #EDE8DF;
+  --border: rgba(0,0,0,0.09);
+  --border2: rgba(0,0,0,0.05);
+
+  --ink:   #18150F;
+  --ink2:  #3A342A;
+  --ink3:  #6B6257;
+  --ink4:  #A09890;
+
+  --blue:     #1A6FAA;
+  --blue-pale:#EAF4FB;
+  --green:    #2E7D46;
+  --grn-pale: #EAF5EE;
+  --purple:   #6B3FA0;
+  --pur-pale: #F2ECFA;
+  --gold:     #B88A00;
+  --gld-pale: #FDF6E3;
+  --warm:     #8C4A2F;
+  --warm-pale:#FBF0EB;
+
+  --font-d: 'Barlow Condensed', sans-serif;
+  --font-b: 'Barlow', sans-serif;
+  --font-m: 'DM Mono', monospace;
+  --r: 16px;
+  --rsm: 10px;
+  --pill: 999px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{
+  scroll-behavior:smooth;
+  min-height:100%;
+  background:var(--off);
+}
+
+body{
+  margin:0;
+  min-height:100%;
+  overflow-x:hidden;
+  background:var(--off);
+  color:var(--ink);
+  font-family:var(--font-b);
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* Mobile-first: centered column, normal document scroll — no bezel; nav stays viewport-fixed. */
+.phone-stage{
+  margin:0 auto;
+  max-width:430px;
+  min-height:100vh;
+  min-height:100dvh;
+  padding:0;
+  box-sizing:border-box;
+  background:var(--off);
+}
+
+.phone-bezel{
+  position:relative;
+  width:100%;
+  padding:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+
+.phone-island{display:none;}
+
+.phone-screen{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  min-height:100dvh;
+  border-radius:0;
+  overflow-x:hidden;
+  overflow-y:visible;
+  background:var(--off);
+  transform:none;
+  isolation:isolate;
+}
+
+.app-canvas{
+  position:relative;
+  min-height:unset;
+  overflow-x:hidden;
+}
+
+/* ---- PAGES ---- */
+.page{display:none;min-height:100vh;min-height:100dvh;padding-bottom:104px;}
+.page.active{display:block;}
+
+/* ---- LIQUID GLASS NAV ---- */
+.nav{
+  position:fixed;
+  bottom:max(14px,env(safe-area-inset-bottom,0px));
+  left:50%;transform:translateX(-50%);
+  width:calc(100% - 28px);max-width:402px;
+  background:rgba(255,255,255,0.6);
+  backdrop-filter:blur(28px) saturate(200%);
+  -webkit-backdrop-filter:blur(28px) saturate(200%);
+  border:1px solid rgba(255,255,255,0.85);
+  border-radius:var(--pill);
+  box-shadow:0 8px 32px rgba(0,0,0,0.10),inset 0 1px 0 rgba(255,255,255,0.95);
+  display:flex;align-items:center;
+  z-index:500;padding:6px 8px;gap:2px;
+}
+
+.nb{
+  flex:1;background:none;border:none;
+  color:var(--ink3);
+  padding:8px 4px 6px;
+  cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  border-radius:var(--pill);
+  transition:all .18s;
+}
+.nb.on{color:var(--orange);background:rgba(255,130,0,0.09);}
+.nb svg{width:20px;height:20px;stroke-width:1.8;fill:none;stroke:currentColor;}
+.nb span{font-family:var(--font-m);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;}
+
+.nb.home-btn{
+  background:var(--orange);color:white;
+  border-radius:50%;width:52px;height:52px;
+  flex:0 0 52px;padding:0;margin:-6px 2px;
+  box-shadow:0 4px 18px rgba(255,130,0,.42);
+  display:flex;align-items:center;justify-content:center;
+}
+.nb.home-btn.on{background:var(--orange-dk);}
+.nb.home-btn svg{width:22px;height:22px;stroke:white;stroke-width:2;}
+.nb.home-btn span{display:none;}
+
+/* ---- LOGO single-line ---- */
+.logo-line{
+  font-family:var(--font-d);
+  font-weight:900;
+  font-style:italic;
+  letter-spacing:-.01em;
+  line-height:1;
+  display:inline-flex;align-items:baseline;
+}
+.logo-line .c{color:var(--orange);}
+.logo-xl{font-size:72px;}
+.logo-lg{font-size:48px;}
+.logo-md{font-size:32px;}
+.logo-sm{font-size:22px;}
+
+/* ---- PAGE HEADERS ---- */
+.pg-head{
+  background:var(--white);
+  padding:52px 20px 16px;
+  border-bottom:1px solid var(--border2);
+}
+.pg-title{
+  font-family:var(--font-d);font-size:40px;font-weight:900;
+  letter-spacing:.02em;color:var(--ink);
+}
+
+/* ---- SHARED COMPONENTS ---- */
+.eyebrow{
+  font-family:var(--font-m);font-size:10px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--orange);
+  display:flex;align-items:center;gap:8px;
+}
+.eyebrow::before{content:'';display:block;width:18px;height:1.5px;background:var(--orange);border-radius:2px;}
+
+.card{
+  background:var(--white);border-radius:var(--r);
+  border:1px solid var(--border2);
+  box-shadow:0 2px 12px rgba(0,0,0,.04);
+  overflow:hidden;
+}
+
+.pill-tag{
+  display:inline-flex;align-items:center;gap:5px;
+  border-radius:var(--pill);
+  font-family:var(--font-m);font-size:10px;letter-spacing:.08em;
+  padding:4px 11px;
+}
+
+.section-label{
+  font-family:var(--font-m);font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--orange);
+  display:flex;align-items:center;gap:8px;margin:18px 0 10px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:rgba(255,130,0,.2);}
+
+/* ---- HOME ---- */
+.home-hero{
+  background:var(--white);
+  padding:20px 20px 28px;
+  position:relative;overflow:hidden;
+}
+.hh-c1{position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(255,130,0,.07) 0%,transparent 70%);top:-80px;right:-60px;pointer-events:none;}
+.hh-c2{position:absolute;width:180px;height:180px;border-radius:50%;border:1px solid rgba(255,130,0,.11);bottom:-50px;left:-40px;pointer-events:none;}
+.hh-c3{position:absolute;width:72px;height:72px;border-radius:50%;border:1.5px dashed rgba(255,130,0,.16);top:44px;right:44px;pointer-events:none;}
+
+.home-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;position:relative;z-index:1;}
+.home-meta{font-family:var(--font-m);font-size:10px;color:var(--ink3);letter-spacing:.1em;text-align:right;line-height:2;}
+
+.stat-row{display:flex;gap:0;margin-top:22px;justify-content:space-between;}
+.stat-o{
+  width:78px;height:78px;border-radius:50%;
+  background:var(--orange-pale);
+  border:1.5px solid rgba(255,130,0,.2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.stat-n{font-family:var(--font-d);font-size:26px;font-weight:900;color:var(--orange);line-height:1;}
+.stat-l{font-family:var(--font-m);font-size:8px;color:var(--orange-dk);letter-spacing:.07em;text-transform:uppercase;margin-top:1px;}
+
+.today-card{
+  margin:14px 16px 0;
+  background:var(--orange);border-radius:var(--r);
+  padding:15px 18px;
+  display:flex;align-items:center;gap:14px;
+  cursor:pointer;
+  box-shadow:0 4px 20px rgba(255,130,0,.25);
+  transition:transform .15s;
+}
+.today-card:active{transform:scale(.98);}
+.today-icon{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.today-icon svg{width:20px;height:20px;stroke:white;fill:none;stroke-width:2;}
+.today-lbl{font-family:var(--font-m);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.7);}
+.today-nm{font-family:var(--font-d);font-size:22px;font-weight:800;color:white;line-height:1.1;margin-top:2px;}
+.chev{margin-left:auto;flex-shrink:0;}
+.chev svg{width:18px;height:18px;stroke:rgba(255,255,255,.7);fill:none;stroke-width:2.5;}
+
+.group-card{
+  margin:12px 16px 0;
+  background:var(--white);border-radius:var(--r);
+  border:1px solid var(--border2);
+  padding:14px 16px;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+.gc-lbl{font-family:var(--font-m);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;}
+.gc-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--orange-pale);
+  border:1.5px solid rgba(255,130,0,.22);
+  border-radius:var(--pill);
+  padding:8px 14px 8px 8px;
+}
+.gc-circle{width:34px;height:34px;border-radius:50%;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:16px;font-weight:900;font-style:italic;}
+.gc-name{font-family:var(--font-d);font-size:20px;font-weight:800;color:var(--orange-dk);}
+.gc-ta{font-family:var(--font-m);font-size:9px;color:var(--ink3);letter-spacing:.05em;}
+
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px 0;}
+.qc{
+  background:var(--white);border-radius:var(--r);
+  border:1px solid var(--border2);
+  padding:14px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+  transition:transform .14s,box-shadow .14s;
+}
+.qc:active{transform:scale(.97);box-shadow:none;}
+.qc-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.qc-icon svg{width:20px;height:20px;fill:none;stroke-width:1.8;}
+.qc-name{font-family:var(--font-d);font-size:20px;font-weight:800;letter-spacing:.03em;color:var(--ink);}
+.qc-sub{font-family:var(--font-m);font-size:9px;color:var(--ink3);letter-spacing:.06em;margin-top:2px;}
+
+/* ---- SCHEDULE ---- */
+.day-scroll{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:14px;}
+.day-scroll::-webkit-scrollbar{display:none;}
+
+.dc{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;}
+.dc-circle{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--cream);border:1.5px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.dc.on .dc-circle{background:var(--tc,var(--orange));border-color:transparent;box-shadow:0 4px 14px rgba(0,0,0,.14);}
+.dc-date{font-family:var(--font-d);font-size:20px;font-weight:800;color:var(--ink);line-height:1;}
+.dc.on .dc-date{color:white;}
+.dc-abbr{font-family:var(--font-m);font-size:8px;color:var(--ink3);letter-spacing:.07em;text-transform:uppercase;}
+.dc.on .dc-abbr{color:rgba(255,255,255,.75);}
+.dc-lbl{font-family:var(--font-m);font-size:8px;color:var(--ink4);letter-spacing:.04em;text-align:center;max-width:52px;line-height:1.3;}
+.dc.on .dc-lbl{color:var(--tc,var(--orange));}
+
+.track-banner{
+  margin:12px 16px 0;border-radius:var(--r);
+  padding:11px 16px;display:flex;align-items:center;gap:11px;
+}
+.tb-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;}
+.tb-name{font-family:var(--font-d);font-size:22px;font-weight:800;letter-spacing:.03em;}
+.tb-date{font-family:var(--font-m);font-size:10px;letter-spacing:.07em;margin-left:auto;opacity:.65;}
+
+.timeline{padding:12px 16px 0;display:flex;flex-direction:column;gap:6px;}
+.tl-row{display:grid;grid-template-columns:52px 1fr;gap:8px;align-items:stretch;cursor:pointer;}
+.tl-tc{display:flex;flex-direction:column;align-items:center;padding-top:13px;}
+.tl-time{font-family:var(--font-m);font-size:9.5px;color:var(--ink3);letter-spacing:.04em;text-align:center;line-height:1.4;}
+.tl-dot{width:10px;height:10px;border-radius:50%;margin-top:6px;flex-shrink:0;background:var(--tc,var(--orange));}
+.tl-line{flex:1;width:1.5px;background:var(--border);margin-top:4px;}
+.tl-ev{
+  background:var(--white);border-radius:var(--rsm);
+  padding:11px 14px;border:1px solid var(--border2);
+  border-left:3px solid var(--tc,var(--orange));
+}
+.tl-row:active .tl-ev{box-shadow:0 4px 16px rgba(0,0,0,.08);}
+.tl-name{font-family:var(--font-d);font-size:18px;font-weight:800;letter-spacing:.02em;color:var(--ink);line-height:1.1;}
+.tl-loc{font-family:var(--font-m);font-size:9.5px;color:var(--ink3);letter-spacing:.05em;margin-top:4px;}
+.tl-tag{
+  display:inline-block;border-radius:var(--pill);
+  padding:3px 9px;font-family:var(--font-m);font-size:9px;
+  letter-spacing:.07em;text-transform:uppercase;margin-top:6px;
+  background:var(--tp,var(--orange-pale));color:var(--tc,var(--orange));
+}
+
+/* ---- GALLERY ---- */
+.filter-row{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.filter-row::-webkit-scrollbar{display:none;}
+.fp{
+  flex-shrink:0;border-radius:var(--pill);padding:7px 14px;
+  font-family:var(--font-m);font-size:10px;letter-spacing:.07em;
+  cursor:pointer;transition:all .15s;background:var(--cream);
+  color:var(--ink2);border:1.5px solid transparent;white-space:nowrap;
+}
+.fp.on{background:var(--orange);color:white;border-color:var(--orange);}
+
+.masonry{padding:12px 12px 0;columns:2;column-gap:8px;}
+.gi{break-inside:avoid;margin-bottom:8px;border-radius:var(--rsm);overflow:hidden;background:var(--white);border:1px solid var(--border2);cursor:pointer;}
+.gi-ph{width:100%;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
+.gi-ph-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.gi-meta{position:relative;z-index:1;padding:10px 10px 8px;background:linear-gradient(to top,rgba(255,255,255,.96) 60%,transparent);}
+.gi-title{font-family:var(--font-d);font-size:14px;font-weight:700;color:var(--ink);}
+.gi-sub{font-family:var(--font-m);font-size:8.5px;color:var(--ink3);letter-spacing:.05em;margin-top:2px;}
+.gi-like{display:flex;align-items:center;gap:5px;margin-top:6px;}
+.lb{display:flex;align-items:center;gap:4px;background:var(--off);border:none;border-radius:var(--pill);padding:4px 9px;cursor:pointer;transition:background .15s;}
+.lb.on{background:var(--orange-pale);}
+.lb svg{width:12px;height:12px;stroke:var(--ink3);fill:none;stroke-width:2;}
+.lb.on svg{stroke:var(--orange);fill:var(--orange);}
+.lc{font-family:var(--font-m);font-size:9.5px;color:var(--ink3);}
+.lb.on .lc{color:var(--orange);}
+
+.fab{
+  /* Mobile: fixed to viewport, right-aligned with the nav pill */
+  position:fixed;
+  bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 72px);
+  right:max(14px,calc(50% - 201px));
+  background:var(--orange);border:none;border-radius:50%;
+  width:54px;height:54px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;box-shadow:0 4px 20px rgba(255,130,0,.4);
+  z-index:510;transition:transform .15s;
+}
+.fab:active{transform:scale(.92);}
+.fab svg{width:24px;height:24px;stroke:white;fill:none;stroke-width:2.2;}
+
+/* ---- PROFILE ---- */
+.prof-hero{
+  background:var(--white);padding:52px 20px 20px;
+  position:relative;overflow:hidden;
+}
+.ph-bg{position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,var(--orange-pale) 0%,transparent 70%);pointer-events:none;}
+.prof-av{
+  width:80px;height:80px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-d);font-size:28px;font-weight:900;font-style:italic;color:white;
+  margin-bottom:14px;
+  box-shadow:0 4px 20px rgba(0,0,0,.14);position:relative;z-index:1;
+}
+.prof-name{font-family:var(--font-d);font-size:32px;font-weight:900;letter-spacing:.02em;position:relative;z-index:1;}
+.prof-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  border-radius:var(--pill);padding:5px 12px 5px 8px;
+  margin-top:8px;position:relative;z-index:1;
+}
+.prof-dot{width:10px;height:10px;border-radius:50%;}
+.prof-grp{font-family:var(--font-m);font-size:10px;color:var(--ink3);letter-spacing:.07em;margin-top:5px;position:relative;z-index:1;display:flex;align-items:center;gap:7px;}
+.prof-grp::before{content:'';display:block;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+
+.prof-stats{display:flex;padding-top:16px;margin-top:16px;border-top:1px solid var(--border2);position:relative;z-index:1;}
+.ps{flex:1;text-align:center;border-right:1px solid var(--border2);}
+.ps:last-child{border-right:none;}
+.ps-n{font-family:var(--font-d);font-size:28px;font-weight:900;color:var(--orange);}
+.ps-l{font-family:var(--font-m);font-size:8.5px;color:var(--ink3);letter-spacing:.07em;text-transform:uppercase;}
+
+.prof-btns{margin:12px 16px 0;display:flex;gap:8px;}
+.pb{
+  flex:1;background:var(--off);border:1.5px solid var(--border);
+  border-radius:var(--r);padding:11px 10px;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  cursor:pointer;font-family:var(--font-d);font-size:16px;font-weight:700;
+  letter-spacing:.04em;color:var(--ink);transition:background .15s;
+}
+.pb:hover{background:var(--cream);}
+.pb svg{width:16px;height:16px;stroke:var(--orange);fill:none;stroke-width:2;}
+.pb.prim{background:var(--orange);color:white;border-color:var(--orange);}
+.pb.prim svg{stroke:white;}
+
+.sess-block{margin:14px 16px 0;background:var(--white);border-radius:var(--r);border:1px solid var(--border2);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.sess-hd{padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border2);}
+.sess-nc{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:16px;font-weight:900;font-style:italic;flex-shrink:0;}
+.sess-title{font-family:var(--font-d);font-size:20px;font-weight:800;letter-spacing:.03em;}
+.sess-desc{font-family:var(--font-b);font-size:12.5px;font-weight:300;color:var(--ink3);margin-top:2px;line-height:1.4;}
+.sess-photos{display:grid;gap:2px;}
+.sp{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:9px;color:var(--ink4);letter-spacing:.06em;position:relative;overflow:hidden;}
+.sp.tall{aspect-ratio:3/4;grid-row:span 2;}
+
+.book-wrap{margin:14px 16px 0;}
+.book-lbl{font-family:var(--font-m);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.book-lbl::before{content:'';display:block;width:14px;height:1px;background:var(--ink4);}
+.book-pg{background:white;border-radius:var(--rsm);border:1px solid var(--border);padding:16px;box-shadow:4px 4px 20px rgba(0,0,0,.08);}
+.book-hr{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:10px;border-bottom:1.5px solid var(--ink);margin-bottom:10px;}
+.book-nm{font-family:var(--font-d);font-size:24px;font-weight:900;font-style:italic;color:var(--ink);letter-spacing:-.01em;}
+.book-logo{font-family:var(--font-d);font-size:18px;font-weight:900;font-style:italic;color:var(--ink);line-height:1.1;}
+.book-logo .c{color:var(--orange);}
+.book-imgs{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:10px;}
+.book-ib{aspect-ratio:4/3;background:var(--off);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:8px;color:var(--ink4);letter-spacing:.05em;}
+.book-cap{display:flex;justify-content:space-between;border-top:.5px solid var(--ink4);padding-top:6px;font-family:var(--font-m);font-size:8px;color:var(--ink4);letter-spacing:.05em;}
+
+/* ---- GROUP CHAT ---- */
+.chat-wrap{margin:14px 16px 0;background:var(--white);border-radius:var(--r);border:1px solid var(--border2);overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.chat-head{
+  padding:12px 16px;border-bottom:1px solid var(--border2);
+  display:flex;align-items:center;gap:10px;
+  background:var(--orange);
+}
+.chat-head-av{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:15px;font-weight:900;font-style:italic;color:white;flex-shrink:0;}
+.chat-head-name{font-family:var(--font-d);font-size:18px;font-weight:800;color:white;}
+.chat-head-sub{font-family:var(--font-m);font-size:9px;color:rgba(255,255,255,.7);letter-spacing:.06em;}
+.chat-head-info{margin-left:auto;flex-shrink:0;}
+.chat-head-info svg{width:18px;height:18px;stroke:rgba(255,255,255,.7);fill:none;stroke-width:1.8;}
+
+.chat-msgs{padding:12px 14px;display:flex;flex-direction:column;gap:10px;max-height:260px;overflow-y:auto;}
+.msg{display:flex;align-items:flex-end;gap:8px;}
+.msg.me{flex-direction:row-reverse;}
+.msg-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:12px;font-weight:900;font-style:italic;color:white;flex-shrink:0;}
+.msg-body{max-width:72%;}
+.msg-name{font-family:var(--font-m);font-size:8.5px;color:var(--ink3);letter-spacing:.05em;margin-bottom:3px;}
+.msg.me .msg-name{text-align:right;}
+.msg-bub{
+  background:var(--off);border-radius:14px 14px 14px 3px;
+  padding:9px 13px;
+  font-family:var(--font-b);font-size:13.5px;color:var(--ink);line-height:1.5;
+}
+.msg.me .msg-bub{background:var(--orange);color:white;border-radius:14px 14px 3px 14px;}
+.msg-time{font-family:var(--font-m);font-size:8px;color:var(--ink4);letter-spacing:.04em;margin-top:3px;}
+.msg.me .msg-time{text-align:right;}
+
+.msg-ta .msg-bub{background:var(--orange-pale);border:1.5px solid rgba(255,130,0,.2);color:var(--ink);}
+.msg-ta .msg-name{color:var(--orange);}
+
+.chat-input-row{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 14px;border-top:1px solid var(--border2);
+}
+.chat-input{
+  flex:1;background:var(--off);border:1.5px solid var(--border);
+  border-radius:var(--pill);padding:9px 14px;
+  font-family:var(--font-b);font-size:14px;color:var(--ink);
+  outline:none;transition:border-color .15s;
+}
+.chat-input:focus{border-color:var(--orange);}
+.chat-input::placeholder{color:var(--ink4);}
+.chat-send{width:36px;height:36px;border-radius:50%;background:var(--orange);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.chat-send svg{width:16px;height:16px;stroke:white;fill:none;stroke-width:2.2;}
+
+/* ---- CAMPUS MAP ---- */
+.map-box{margin:12px 16px 0;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);height:260px;box-shadow:0 4px 20px rgba(0,0,0,.07);}
+.loc-list{padding:12px 16px 0;display:flex;flex-direction:column;gap:8px;}
+.lc-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border2);padding:13px 14px;display:flex;align-items:center;gap:14px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.03);transition:box-shadow .15s;}
+.lc-card:active{box-shadow:0 6px 20px rgba(0,0,0,.08);}
+.lc-circ{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.lc-circ svg{width:22px;height:22px;fill:none;stroke-width:1.8;}
+.lc-name{font-family:var(--font-d);font-size:20px;font-weight:800;letter-spacing:.02em;color:var(--ink);}
+.lc-desc{font-family:var(--font-m);font-size:9.5px;color:var(--ink3);letter-spacing:.04em;margin-top:2px;}
+.lc-walk{margin-left:auto;flex-shrink:0;text-align:center;}
+.lc-wn{font-family:var(--font-d);font-size:22px;font-weight:900;color:var(--orange);line-height:1;}
+.lc-wu{font-family:var(--font-m);font-size:8px;color:var(--ink3);letter-spacing:.06em;}
+
+/* ---- ABOUT ---- */
+.about-tabs{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
+.about-tabs::-webkit-scrollbar{display:none;}
+.at{
+  flex-shrink:0;background:none;border:none;
+  padding:10px 16px;font-family:var(--font-m);font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);
+  cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;
+}
+.at.on{color:var(--orange);border-bottom-color:var(--orange);}
+
+.about-panel{display:none;padding:16px 16px 0;}
+.about-panel.on{display:block;}
+
+/* People carousel */
+.people-carousel-wrap{position:relative;overflow:hidden;margin:0 -16px;padding:0 16px;}
+.people-carousel{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;}
+.people-carousel::-webkit-scrollbar{display:none;}
+
+.person-card{
+  flex-shrink:0;width:160px;
+  background:var(--white);border-radius:var(--r);
+  border:1px solid var(--border2);
+  padding:16px 14px;cursor:pointer;
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
+  transition:transform .15s,box-shadow .15s;
+}
+.person-card:active{transform:scale(.97);}
+.pc-av{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:22px;font-weight:900;font-style:italic;color:white;margin-bottom:10px;box-shadow:0 3px 12px rgba(0,0,0,.15);}
+.pc-name{font-family:var(--font-d);font-size:18px;font-weight:800;letter-spacing:.02em;color:var(--ink);line-height:1.1;}
+.pc-role{font-family:var(--font-m);font-size:9px;color:var(--orange);letter-spacing:.08em;text-transform:uppercase;margin-top:3px;}
+.pc-bio{font-family:var(--font-b);font-size:12px;font-weight:300;color:var(--ink3);margin-top:6px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+
+/* Person modal */
+.person-modal{
+  display:none;position:fixed;inset:0;
+  background:rgba(20,14,8,.4);backdrop-filter:blur(6px);
+  z-index:600;align-items:flex-end;justify-content:center;
+}
+.person-modal.open{display:flex;}
+.pm-sheet{
+  background:var(--white);width:100%;max-width:430px;
+  border-radius:24px 24px 0 0;max-height:88vh;overflow-y:auto;
+  padding:8px 20px 48px;
+  animation:su .28s cubic-bezier(.22,.68,0,1.2);
+}
+@keyframes su{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+.pm-handle{width:36px;height:4px;border-radius:2px;background:var(--cream);margin:8px auto 20px;}
+.pm-av{width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:34px;font-weight:900;font-style:italic;color:white;box-shadow:0 6px 24px rgba(0,0,0,.18);margin-bottom:14px;}
+.pm-name{font-family:var(--font-d);font-size:34px;font-weight:900;letter-spacing:.02em;}
+.pm-role{font-family:var(--font-m);font-size:10px;color:var(--orange);letter-spacing:.1em;text-transform:uppercase;margin-top:4px;}
+.pm-bio{font-family:var(--font-b);font-size:14px;font-weight:300;color:var(--ink2);line-height:1.7;margin-top:14px;}
+.pm-link{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:16px;background:var(--off);border:1.5px solid var(--border);
+  border-radius:var(--pill);padding:9px 16px;
+  font-family:var(--font-m);font-size:10px;letter-spacing:.08em;color:var(--ink2);
+  text-decoration:none;cursor:pointer;
+}
+.pm-link svg{width:14px;height:14px;stroke:var(--orange);fill:none;stroke-width:1.8;}
+.pm-nav{display:flex;gap:10px;margin-top:20px;}
+.pm-nav-btn{
+  flex:1;background:var(--off);border:1.5px solid var(--border);
+  border-radius:var(--r);padding:11px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-family:var(--font-d);font-size:16px;font-weight:700;
+  letter-spacing:.04em;color:var(--ink);cursor:pointer;
+}
+.pm-nav-btn svg{width:16px;height:16px;stroke:var(--orange);fill:none;stroke-width:2;}
+.pm-close{
+  width:100%;background:var(--off);border:1.5px solid var(--border);
+  border-radius:var(--r);padding:13px;
+  font-family:var(--font-d);font-size:18px;font-weight:700;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--ink);
+  cursor:pointer;margin-top:10px;
+}
+
+/* Program cards */
+.prog-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border2);overflow:hidden;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.prog-hd{padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;}
+.prog-circ{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:17px;font-weight:900;font-style:italic;flex-shrink:0;}
+.prog-name{font-family:var(--font-d);font-size:22px;font-weight:900;letter-spacing:.03em;color:var(--ink);}
+.prog-deg{font-family:var(--font-m);font-size:9.5px;color:var(--ink3);letter-spacing:.06em;margin-top:2px;text-transform:uppercase;}
+.prog-chev{width:18px;height:18px;stroke:var(--ink3);fill:none;stroke-width:2;margin-left:auto;flex-shrink:0;transition:transform .2s;}
+.prog-card.open .prog-chev{transform:rotate(180deg);}
+.prog-body{display:none;padding:0 16px 16px;}
+.prog-card.open .prog-body{display:block;}
+.prog-desc{font-family:var(--font-b);font-size:13.5px;font-weight:300;color:var(--ink2);line-height:1.65;margin-bottom:12px;}
+
+/* Building */
+.building-card{background:var(--ink);border-radius:var(--r);overflow:hidden;margin-bottom:10px;position:relative;}
+.bc-deco{position:absolute;border-radius:50%;pointer-events:none;}
+.bc-inner{padding:20px;position:relative;z-index:1;}
+.bc-ey{font-family:var(--font-m);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:8px;}
+.bc-title{font-family:var(--font-d);font-size:28px;font-weight:900;color:white;letter-spacing:.03em;margin-bottom:12px;}
+.bc-stats{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+.bc-stat{width:62px;height:62px;border-radius:50%;border:1.5px solid rgba(255,130,0,.38);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.bc-sn{font-family:var(--font-d);font-size:18px;font-weight:900;color:var(--orange);line-height:1;}
+.bc-su{font-family:var(--font-m);font-size:7px;color:rgba(255,130,0,.55);letter-spacing:.06em;text-transform:uppercase;}
+.bc-body{font-family:var(--font-b);font-size:13.5px;font-weight:300;color:rgba(255,255,255,.7);line-height:1.7;}
+
+/* Culture */
+.cul-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border2);overflow:hidden;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.03);}
+.cul-img{height:120px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.cul-deco{position:absolute;border-radius:50%;pointer-events:none;}
+.cul-body{padding:14px;}
+.cul-title{font-family:var(--font-d);font-size:22px;font-weight:800;letter-spacing:.03em;margin-bottom:6px;}
+.cul-text{font-family:var(--font-b);font-size:13.5px;font-weight:300;color:var(--ink2);line-height:1.65;}
+
+/* SDC panel */
+.staff-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border2);padding:14px;margin-bottom:6px;display:flex;align-items:flex-start;gap:12px;box-shadow:0 2px 6px rgba(0,0,0,.03);cursor:pointer;transition:box-shadow .15s;}
+.staff-card:active{box-shadow:0 6px 18px rgba(0,0,0,.08);}
+.sc-av{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:18px;font-weight:900;font-style:italic;color:white;flex-shrink:0;}
+.sc-name{font-family:var(--font-d);font-size:20px;font-weight:800;letter-spacing:.02em;color:var(--ink);line-height:1.1;}
+.sc-role{font-family:var(--font-m);font-size:9.5px;color:var(--orange);letter-spacing:.08em;text-transform:uppercase;margin-top:2px;}
+.sc-bio{font-family:var(--font-b);font-size:12.5px;font-weight:300;color:var(--ink3);line-height:1.5;margin-top:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+
+/* College intro */
+.college-intro{background:var(--orange);border-radius:var(--r);padding:20px;margin-bottom:14px;position:relative;overflow:hidden;}
+.ci-bg1{position:absolute;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.1);top:-30px;right:-30px;pointer-events:none;}
+.ci-bg2{position:absolute;width:120px;height:120px;border-radius:50%;border:1.5px solid rgba(255,255,255,.14);bottom:-50px;left:20px;pointer-events:none;}
+.ci-title{font-family:var(--font-d);font-size:28px;font-weight:900;color:white;letter-spacing:.03em;position:relative;z-index:1;}
+.ci-sub{font-family:var(--font-m);font-size:10px;color:rgba(255,255,255,.72);letter-spacing:.08em;margin-top:4px;position:relative;z-index:1;}
+.ci-body{font-family:var(--font-b);font-size:13.5px;font-weight:300;color:rgba(255,255,255,.9);line-height:1.65;margin-top:10px;position:relative;z-index:1;}
+
+/* ---- SHEETS ---- */
+.overlay{display:none;position:fixed;inset:0;background:rgba(20,14,8,.36);backdrop-filter:blur(5px);z-index:400;align-items:flex-end;justify-content:center;}
+.overlay.open{display:flex;}
+.sheet{background:var(--white);width:100%;max-width:430px;border-radius:24px 24px 0 0;max-height:80vh;overflow-y:auto;padding:8px 20px calc(88px + env(safe-area-inset-bottom));animation:su .28s cubic-bezier(.22,.68,0,1.2);}
+.sh-handle{width:36px;height:4px;border-radius:2px;background:var(--cream);margin:8px auto 20px;}
+.sh-title{font-family:var(--font-d);font-size:30px;font-weight:900;color:var(--ink);margin-bottom:6px;line-height:1;}
+.sh-meta{font-family:var(--font-m);font-size:11px;color:var(--ink3);letter-spacing:.07em;margin-bottom:16px;display:flex;align-items:center;gap:7px;}
+.sh-meta svg{width:13px;height:13px;stroke:var(--ink3);fill:none;stroke-width:2;flex-shrink:0;}
+.sh-body{font-family:var(--font-b);font-size:14px;font-weight:300;color:var(--ink2);line-height:1.72;margin-bottom:14px;}
+.sh-slabel{font-family:var(--font-m);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin:16px 0 8px;}
+.mat-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--off);border-radius:var(--rsm);margin-bottom:4px;}
+.mat-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;}
+.mat-text{font-family:var(--font-b);font-size:13.5px;color:var(--ink2);}
+.sh-close{background:var(--off);border:none;color:var(--ink2);width:100%;padding:13px;font-family:var(--font-d);font-size:18px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border-radius:var(--r);cursor:pointer;margin-top:18px;}
+
+/* Upload */
+.upload-zone{border:2px dashed rgba(255,130,0,.3);border-radius:var(--r);padding:36px 20px;display:flex;flex-direction:column;align-items:center;gap:10px;background:var(--orange-pale);cursor:pointer;margin:14px 0;}
+.uz-c{width:54px;height:54px;border-radius:50%;background:rgba(255,130,0,.15);display:flex;align-items:center;justify-content:center;}
+.uz-c svg{width:26px;height:26px;stroke:var(--orange);fill:none;stroke-width:1.8;}
+.uz-t{font-family:var(--font-d);font-size:20px;font-weight:800;color:var(--orange);}
+.uz-s{font-family:var(--font-m);font-size:9.5px;color:var(--ink3);letter-spacing:.06em;text-align:center;line-height:1.7;}
+.upload-tags{display:flex;gap:6px;margin-bottom:12px;}
+.utag{background:var(--orange-pale);border:1.5px solid rgba(255,130,0,.22);border-radius:var(--pill);padding:5px 12px;font-family:var(--font-m);font-size:10px;color:var(--orange);letter-spacing:.06em;}
+.u-input{background:var(--off);border:1.5px solid var(--border);border-radius:var(--rsm);padding:11px 14px;width:100%;font-family:var(--font-b);font-size:14px;color:var(--ink);outline:none;margin-bottom:10px;transition:border-color .15s;}
+.u-input:focus{border-color:var(--orange);}
+.u-input::placeholder{color:var(--ink4);}
+.u-submit{background:var(--orange);border:none;border-radius:var(--r);color:white;width:100%;padding:15px;font-family:var(--font-d);font-size:20px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 16px rgba(255,130,0,.3);}
+
+/* Poll */
+.poll-q{font-family:var(--font-d);font-size:28px;font-weight:900;letter-spacing:.02em;line-height:1.1;margin-bottom:4px;color:var(--ink);}
+.poll-meta{font-family:var(--font-m);font-size:10px;color:var(--ink3);letter-spacing:.07em;margin-bottom:18px;}
+.poll-opt{background:var(--off);border-radius:var(--r);padding:13px 15px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .15s;border:1.5px solid transparent;position:relative;overflow:hidden;}
+.poll-opt.on{border-color:var(--orange);background:var(--orange-pale);}
+.poll-bar{position:absolute;top:0;left:0;bottom:0;background:rgba(255,130,0,.07);transition:width .4s ease;pointer-events:none;}
+.poll-oc{width:40px;height:40px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.06);}
+.poll-ot{font-family:var(--font-d);font-size:22px;font-weight:800;flex:1;}
+.poll-op{font-family:var(--font-m);font-size:13px;color:var(--orange);font-weight:500;}
+.poll-sub{background:var(--orange);border:none;border-radius:var(--r);color:white;width:100%;padding:14px;font-family:var(--font-d);font-size:20px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 16px rgba(255,130,0,.3);margin-top:4px;}
+
+/* ---- FEED / GALLERY ---- */
+/* ── Gallery Feed ── */
+.fd-feed{display:flex;flex-direction:column;gap:0;}
+.fd-post{background:var(--white);border-bottom:1px solid var(--border2);cursor:pointer;}
+.fd-img-wrap{width:100%;overflow:hidden;position:relative;background:var(--cream);}
+.fd-img{width:100%;display:block;object-fit:cover;max-height:420px;}
+.fd-foot{padding:10px 14px 14px;}
+.fd-actions{display:flex;align-items:center;gap:4px;margin-bottom:7px;}
+.fd-heart{background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:transform .15s;}
+.fd-heart:active{transform:scale(1.25);}
+.fd-heart svg{width:24px;height:24px;stroke:var(--ink);fill:none;stroke-width:1.9;transition:stroke .15s,fill .15s;}
+.fd-heart.on svg{stroke:var(--orange);fill:var(--orange);}
+.fd-tag{display:inline-block;font-family:var(--font-m);font-size:9px;letter-spacing:.07em;padding:3px 9px;border-radius:var(--pill);}
+.fd-caption{font-family:var(--font-b);font-size:14px;color:var(--ink);line-height:1.5;}
+.fd-nocap{font-family:var(--font-m);font-size:10px;color:var(--ink4);letter-spacing:.05em;}
+.fd-heart{background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;transition:background .15s;padding:0;}
+.fd-heart:active{background:var(--orange-pale);}
+.fd-heart svg{width:22px;height:22px;stroke:var(--ink3);fill:none;stroke-width:1.8;transition:stroke .15s,fill .15s;}
+.fd-heart.on svg{stroke:var(--orange);fill:var(--orange);}
+
+/* Lightbox */
+.lb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:700;flex-direction:column;align-items:center;justify-content:center;}
+.lb-overlay.open{display:flex;}
+.lb-inner{position:relative;width:100%;max-width:430px;display:flex;flex-direction:column;align-items:center;}
+.lb-close{position:absolute;top:-48px;right:12px;background:rgba(255,255,255,.12);border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.lb-img{width:100%;max-height:72vh;object-fit:contain;display:block;}
+.lb-caption{font-family:var(--font-b);font-size:15px;color:white;text-align:center;margin-top:14px;padding:0 24px;line-height:1.5;}
+.lb-tag{font-family:var(--font-m);font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.08em;margin-top:6px;}
+.lb-nav{display:flex;gap:24px;margin-top:16px;}
+.lb-arr{background:rgba(255,255,255,.12);border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+
+/*
+  Desktop preview: wide viewport + fine pointer + hover-capable UA.
+  .phone-screen is a fixed-size, non-scrolling frame (overflow:hidden).
+  .app-canvas is the actual scroll container inside it.
+  .nav is position:absolute within .phone-screen so it never moves regardless
+  of scroll — no transform/fixed interaction edge cases.
+*/
+@media (hover: hover) and (pointer: fine) and (min-width: 720px){
+  html{background:#15151c;}
+  body{background:transparent;}
+
+  .phone-stage{
+    max-width:none;
+    width:100%;
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:clamp(14px,3.5vmin,32px) 16px max(14px,env(safe-area-inset-bottom,0px));
+    background:linear-gradient(165deg,#12121a 0%,#282832 42%,#0e0e14 100%);
+  }
+
+  .phone-bezel{
+    position:relative;
+    width:min(456px,calc(100vw - 32px));
+    padding:13px;
+    border-radius:52px;
+    background:linear-gradient(148deg,#3f3f48 0%,#252529 46%,#0a0a0e 100%);
+    box-shadow:0 40px 100px rgba(0,0,0,.52),inset 0 1px 0 rgba(255,255,255,.14),inset 0 -2px 0 rgba(0,0,0,.45);
+  }
+
+  .phone-island{
+    display:block;
+    position:absolute;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    width:110px;height:34px;border-radius:20px;
+    background:#050506;
+    z-index:12;
+    box-shadow:inset 0 3px 6px rgba(0,0,0,.72);
+  }
+
+  /* Frame: fixed size, clips content, does NOT scroll */
+  .phone-screen{
+    position:relative;
+    width:100%;
+    height:min(852px,calc(100dvh - 76px));
+    max-height:min(852px,calc(100vh - 76px));
+    min-height:0;
+    border-radius:40px;
+    overflow:hidden;
+    background:var(--off);
+  }
+
+  /* Content area scrolls inside the frame */
+  .phone-screen > .app-canvas{
+    position:absolute;
+    inset:0;
+    overflow-y:auto;
+    overflow-x:hidden;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    /* bottom padding so last content isn't hidden behind nav */
+    padding-bottom:104px;
+  }
+
+  .page{min-height:100%;}
+
+  /* Nav anchored to the bottom of the frame — never scrolls */
+  .phone-screen > .nav{
+    position:absolute;
+    bottom:max(14px,env(safe-area-inset-bottom,0px));
+    left:50%;
+    transform:translateX(-50%);
+    width:calc(100% - 28px);
+    max-width:402px;
+    z-index:500;
+  }
+
+  /* FAB: sits above the nav bar, pinned to the frame right edge */
+  .phone-screen > .fab{
+    position:absolute;
+    bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 72px);
+    right:14px;
+    z-index:510;
+  }
+
+  /* Overlays: position:absolute so they fill the frame (app-canvas is positioned,
+     so fixed would be scoped to it — absolute is simpler and correct here) */
+  .phone-screen .overlay,
+  .phone-screen .lb-overlay,
+  .phone-screen .person-modal,
+  .phone-screen .fullchat-overlay{
+    position:absolute;
+  }
+}
+
+/* Full-screen chat overlay */
+.fullchat-overlay{display:none;position:fixed;inset:0;background:var(--white);z-index:600;flex-direction:column;}
+.fullchat-overlay.open{display:flex;}
+.fullchat-header{background:var(--orange);padding:52px 16px 14px;display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.fullchat-back{background:rgba(255,255,255,.2);border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+.fullchat-back svg{width:18px;height:18px;stroke:white;fill:none;stroke-width:2.5;}
+.fullchat-msgs{flex:1;overflow-y:auto;padding:16px 16px;display:flex;flex-direction:column;gap:12px;}
+.fullchat-input-row{display:flex;align-items:center;gap:8px;padding:12px 16px;border-top:1px solid var(--border2);background:var(--white);flex-shrink:0;padding-bottom:max(12px,env(safe-area-inset-bottom));}
+
+/* Charrette sheet styles */
+.charr-title{font-family:var(--font-d);font-size:26px;font-weight:900;letter-spacing:.02em;color:var(--ink);margin-bottom:4px;line-height:1.1;}
+.charr-day{font-family:var(--font-m);font-size:10px;color:var(--orange);letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px;}
+.charr-section{font-family:var(--font-m);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:14px 0 7px;}
+.charr-body{font-family:var(--font-b);font-size:13.5px;font-weight:300;color:var(--ink2);line-height:1.65;}
+.charr-list{list-style:none;display:flex;flex-direction:column;gap:5px;margin-top:4px;}
+.charr-list li{font-family:var(--font-b);font-size:13.5px;font-weight:300;color:var(--ink2);padding:7px 12px;background:var(--off);border-radius:var(--rsm);border-left:3px solid var(--tc,var(--orange));display:flex;align-items:flex-start;gap:8px;line-height:1.45;}
+.charr-list li::before{content:'';display:block;width:7px;height:7px;border-radius:50%;background:var(--tc,var(--orange));flex-shrink:0;margin-top:5px;}
+.charr-badge{display:inline-flex;align-items:center;gap:6px;border-radius:var(--pill);padding:4px 12px;font-family:var(--font-m);font-size:10px;letter-spacing:.08em;margin-bottom:14px;}
+
+</style>
+</head>
+<body>
+<div class="phone-stage"><div class="phone-bezel"><div class="phone-island" aria-hidden="true"></div><div class="phone-screen" role="region" aria-label="SDC Summer Design Camp app"><div class="app-canvas">
+<!-- ======== HOME ======== -->
+<div class="page active" id="page-home">
+  <div class="home-hero">
+    <div class="hh-c1"></div><div class="hh-c2"></div><div class="hh-c3"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1;margin-bottom:10px;">
+      <div class="eyebrow">Summer Design Camp</div>
+      <div class="home-meta">UTK CoA+D · 2026<br>July 12–18<br><span style="color:var(--orange)">Day 1 of 7</span></div>
+    </div>
+    <div style="position:relative;z-index:1;">
+      <span class="logo-line logo-xl" style="display:block;margin-bottom:12px;">S<span class="c">D</span>C!</span>
+      <div style="font-family:var(--font-b);font-size:15px;font-weight:300;color:var(--ink3);max-width:260px;line-height:1.65;">One week. Four disciplines. Real studio work.</div>
+      <div class="stat-row">
+        <div class="stat-o"><div class="stat-n">7</div><div class="stat-l">Days</div></div>
+        <div class="stat-o"><div class="stat-n">170</div><div class="stat-l">Campers</div></div>
+        <div class="stat-o"><div class="stat-n">12</div><div class="stat-l">Groups</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="today-card" onclick="showPage('schedule')">
+    <div class="today-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+    <div>
+      <div class="today-lbl">Now · Up Next</div>
+      <div class="today-nm">Opening Lecture + Camp Kickoff</div>
+    </div>
+    <div class="chev"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+  </div>
+
+  <!-- ── MINI CHAT on home ── -->
+  <div style="margin:14px 16px 0;">
+    <div class="section-label" style="margin-top:0;">Group 07 Chat</div>
+  </div>
+  <div class="chat-wrap" style="margin:0 16px;">
+    <div class="chat-head" onclick="openOverlay('fullChatOverlay')" style="cursor:pointer;">
+      <div class="chat-head-av">7</div>
+      <div>
+        <div class="chat-head-name">Group 07</div>
+        <div class="chat-head-sub">Macy Steingrube · 14 members</div>
+      </div>
+      <div class="chat-head-info">
+        <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:rgba(255,255,255,.7);fill:none;stroke-width:1.8;"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+      </div>
+    </div>
+    <div class="chat-msgs" id="homeChatMsgs" style="max-height:180px;">
+      <div class="msg msg-ta">
+        <div class="msg-av" style="background:var(--orange);">MS</div>
+        <div class="msg-body">
+          <div class="msg-name">Macy (TA)</div>
+          <div class="msg-bub">Good morning everyone! We meet at the A+A Building entrance at 9. Bring your sketchbooks.</div>
+          <div class="msg-time">8:14 AM</div>
+        </div>
+      </div>
+      <div class="msg">
+        <div class="msg-av" style="background:var(--blue);">KL</div>
+        <div class="msg-body">
+          <div class="msg-name">Kai L.</div>
+          <div class="msg-bub">Is the entrance on Volunteer Blvd or the other side?</div>
+          <div class="msg-time">8:22 AM</div>
+        </div>
+      </div>
+      <div class="msg msg-ta">
+        <div class="msg-av" style="background:var(--orange);">MS</div>
+        <div class="msg-body">
+          <div class="msg-name">Macy (TA)</div>
+          <div class="msg-bub">Volunteer Blvd, main doors. Look for the orange banner.</div>
+          <div class="msg-time">8:23 AM</div>
+        </div>
+      </div>
+      <div class="msg me">
+        <div class="msg-av" style="background:linear-gradient(135deg,var(--orange),var(--orange-dk));">JC</div>
+        <div class="msg-body">
+          <div class="msg-name">You</div>
+          <div class="msg-bub">On my way!</div>
+          <div class="msg-time">8:31 AM</div>
+        </div>
+      </div>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="homeChatInput" type="text" placeholder="Message Group 07...">
+      <button class="chat-send" onclick="sendHomeMsg()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ── MINI MAP on home ── -->
+  <div style="margin:16px 16px 0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <div class="section-label" style="margin:0;flex:1;">Campus Map</div>
+      <button onclick="showPage('map')" style="background:none;border:none;font-family:var(--font-m);font-size:10px;color:var(--orange);letter-spacing:.08em;cursor:pointer;padding:0;text-transform:uppercase;">Full map</button>
+    </div>
+    <div style="border-radius:var(--r);overflow:hidden;border:1px solid var(--border);cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.06);" onclick="showPage('map')">
+      <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;background:#e8f0e4;">
+        <rect x="0" y="0" width="400" height="220" fill="#e8f0e4"/>
+        <!-- Green areas -->
+        <rect x="80" y="30" width="70" height="50" fill="#cce0c4" rx="5"/>
+        <rect x="195" y="20" width="100" height="65" fill="#cce0c4" rx="5"/>
+        <rect x="20" y="130" width="55" height="45" fill="#cce0c4" rx="5"/>
+        <rect x="290" y="140" width="85" height="55" fill="#cce0c4" rx="5"/>
+        <!-- Roads -->
+        <rect x="0" y="105" width="400" height="14" fill="#ddd5c8"/>
+        <rect x="160" y="0" width="12" height="220" fill="#ddd5c8"/>
+        <rect x="0" y="178" width="400" height="10" fill="#ddd5c8"/>
+        <rect x="90" y="0" width="9" height="220" fill="#ddd5c8"/>
+        <rect x="285" y="0" width="9" height="220" fill="#ddd5c8"/>
+        <text x="4" y="102" fill="#b0a898" font-size="6.5" font-family="monospace" letter-spacing="1">VOLUNTEER BLVD</text>
+        <!-- CORRECTED BUILDINGS -->
+        <!-- H: Magnolia Hall - top left (correct) -->
+        <rect x="20" y="38" width="54" height="36" fill="#f0e8d8" stroke="#c8b898" stroke-width="1" rx="3"/>
+        <text x="22" y="53" fill="#8a7a60" font-size="6.5" font-family="monospace" font-weight="bold">MAGNOLIA</text>
+        <text x="30" y="65" fill="#8a7a60" font-size="6.5" font-family="monospace">HALL</text>
+        <!-- T: TREC/Pool - left side, below road (RED) -->
+        <rect x="16" y="128" width="66" height="38" fill="#d8eef8" stroke="#80b8d8" stroke-width="1" rx="3"/>
+        <text x="19" y="143" fill="#1a5a8a" font-size="6.5" font-family="monospace" font-weight="bold">TREC / POOL</text>
+        <text x="22" y="154" fill="#1a5a8a" font-size="6.5" font-family="monospace">REC CENTER</text>
+        <!-- D: Rocky Top Dining - center upper (GREEN) -->
+        <rect x="198" y="28" width="80" height="46" fill="#d8eedd" stroke="#90c8a0" stroke-width="1" rx="3"/>
+        <text x="202" y="46" fill="#2a6a3a" font-size="6.5" font-family="monospace" font-weight="bold">ROCKY TOP</text>
+        <text x="208" y="57" fill="#2a6a3a" font-size="6.5" font-family="monospace">DINING</text>
+        <!-- A: Art+Arch Building - right side (BLUE) -->
+        <rect x="293" y="118" width="88" height="44" fill="#d8e8f8" stroke="#90b8d8" stroke-width="1" rx="3"/>
+        <text x="297" y="135" fill="#3a6a8a" font-size="6.5" font-family="monospace" font-weight="bold">ART+ARCH BLDG</text>
+        <text x="303" y="146" fill="#5a8aaa" font-size="6" font-family="monospace">1715 VOL BLVD</text>
+        <!-- Walking routes -->
+        <path d="M47,74 L47,105 L166,105 L250,105" stroke="#FF8200" stroke-width="2" stroke-dasharray="5,3" fill="none" opacity=".55"/>
+        <path d="M47,105 L47,130" stroke="#2E7D46" stroke-width="2" stroke-dasharray="5,3" fill="none" opacity=".55"/>
+        <path d="M169,105 L169,188 L293,200" stroke="#1A6FAA" stroke-width="2" stroke-dasharray="5,3" fill="none" opacity=".55"/>
+        <path d="M290,162 L290,186" stroke="#1A6FAA" stroke-width="1.5" stroke-dasharray="4,3" fill="none" opacity=".4"/>
+        <!-- Pins -->
+        <circle cx="47" cy="56" r="9" fill="#FF8200" opacity=".92"/>
+        <text x="43" y="60" fill="white" font-size="8.5" font-weight="bold" font-family="sans-serif">H</text>
+        <circle cx="49" cy="147" r="9" fill="#1A6FAA" opacity=".92"/>
+        <text x="45" y="151" fill="white" font-size="8.5" font-weight="bold" font-family="sans-serif">T</text>
+        <circle cx="238" cy="51" r="9" fill="#2E7D46" opacity=".92"/>
+        <text x="234" y="55" fill="white" font-size="8.5" font-weight="bold" font-family="sans-serif">D</text>
+        <circle cx="337" cy="140" r="9" fill="#1A6FAA" opacity=".92"/>
+        <text x="333" y="144" fill="white" font-size="8.5" font-weight="bold" font-family="sans-serif">A</text>
+        <!-- Legend -->
+        <rect x="4" y="196" width="214" height="20" fill="rgba(255,255,255,.7)" rx="3"/>
+        <circle cx="15" cy="206" r="4" fill="#FF8200"/><text x="23" y="209" fill="#5a5040" font-size="7" font-family="monospace">H=Magnolia</text>
+        <circle cx="80" cy="206" r="4" fill="#1A6FAA"/><text x="88" y="209" fill="#5a5040" font-size="7" font-family="monospace">T=TREC</text>
+        <circle cx="122" cy="206" r="4" fill="#2E7D46"/><text x="130" y="209" fill="#5a5040" font-size="7" font-family="monospace">D=Dining  A=A+A</text>
+      </svg>
+    </div>
+  </div>
+  <div style="height:22px;"></div>
+</div>
+
+<!-- ======== SCHEDULE ======== -->
+<div class="page" id="page-schedule">
+  <div class="pg-head">
+    <div class="pg-title">SCHEDULE</div>
+    <div style="height:14px;"></div>
+    <div class="day-scroll" id="dayScroll"></div>
+  </div>
+  <div id="trackBanner"></div>
+  <div class="timeline" id="timeline"></div>
+</div>
+
+<div class="overlay" id="actOverlay" onclick="closeOverlay('actOverlay')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sh-handle"></div>
+    <div id="actContent"></div>
+    <button class="sh-close" onclick="closeOverlay('actOverlay')">Close</button>
+  </div>
+</div>
+
+<!-- ======== GALLERY ======== -->
+<div class="page" id="page-gallery">
+  <div class="pg-head" style="padding-bottom:14px;">
+    <div class="pg-title">GALLERY</div>
+    <div style="font-family:var(--font-m);font-size:10px;color:var(--ink3);letter-spacing:.07em;margin-top:4px;">Work from this week · anonymous by default</div>
+  </div>
+  <div style="padding:0 16px 12px;">
+    <div class="filter-row" id="galleryFilters">
+      <button type="button" class="fp on" data-filter="all" onclick="filt(this)">All</button>
+      <button type="button" class="fp" data-filter="arch" onclick="filt(this)">Architecture</button>
+      <button type="button" class="fp" data-filter="gd" onclick="filt(this)">Graphic Design</button>
+      <button type="button" class="fp" data-filter="la" onclick="filt(this)">Landscape</button>
+      <button type="button" class="fp" data-filter="ia" onclick="filt(this)">Interior Arch</button>
+      <button type="button" class="fp" data-filter="final" onclick="filt(this)">Final Project</button>
+    </div>
+  </div>
+  <div class="fd-feed" id="feedContainer">
+    <div class="fd-post" data-track="camp" onclick="openLightbox(0)">
+      <div class="fd-img-wrap">
+        <img class="fd-img" src="assets/gallery/0.jpg" style="object-position:center 40%;" alt="">
+      </div>
+      <div class="fd-foot">
+        <div class="fd-actions">
+          <button class="fd-heart on" onclick="event.stopPropagation();heartPost(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="fd-tag" style="background:#FFF3E6;color:#FF8200;">Camp · Day 1</span>
+        </div>
+        <div class="fd-caption">We painted The Rock. SDC was here.</div>
+      </div>
+    </div>
+
+    <div class="fd-post" data-track="arch" onclick="openLightbox(1)">
+      <div class="fd-img-wrap">
+        <img class="fd-img" src="assets/gallery/1.jpg" style="object-position:center 30%;" alt="">
+      </div>
+      <div class="fd-foot">
+        <div class="fd-actions">
+          <button class="fd-heart" onclick="event.stopPropagation();heartPost(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="fd-tag" style="background:#FFF3E6;color:#FF8200;">Architecture · Day 1</span>
+        </div>
+        <div class="fd-caption">Cardboard, a light, and a few good ideas.</div>
+      </div>
+    </div>
+
+    <div class="fd-post" data-track="la" onclick="openLightbox(2)">
+      <div class="fd-img-wrap">
+        <img class="fd-img" src="assets/gallery/2.jpg" style="object-position:center 50%;" alt="">
+      </div>
+      <div class="fd-foot">
+        <div class="fd-actions">
+          <button class="fd-heart on" onclick="event.stopPropagation();heartPost(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="fd-tag" style="background:#EAF5EE;color:#2E7D46;">Landscape · Day 3</span>
+        </div>
+        <div class="fd-caption">Gone fishing.</div>
+      </div>
+    </div>
+
+    <div class="fd-post" data-track="ia" onclick="openLightbox(3)">
+      <div class="fd-img-wrap">
+        <img class="fd-img" src="assets/gallery/3.jpg" style="object-position:center 60%;" alt="">
+      </div>
+      <div class="fd-foot">
+        <div class="fd-actions">
+          <button class="fd-heart" onclick="event.stopPropagation();heartPost(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="fd-tag" style="background:#F2ECFA;color:#6B3FA0;">Interior Arch · Day 4</span>
+        </div>
+        <div class="fd-caption">This is making my brain explode.</div>
+      </div>
+    </div>
+
+    <div class="fd-post" data-track="camp" onclick="openLightbox(4)">
+      <div class="fd-img-wrap">
+        <img class="fd-img" src="assets/gallery/4.jpg" style="object-position:center 30%;" alt="">
+      </div>
+      <div class="fd-foot">
+        <div class="fd-actions">
+          <button class="fd-heart" onclick="event.stopPropagation();heartPost(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="fd-tag" style="background:#FFF3E6;color:#FF8200;">Camp · Day 1</span>
+        </div>
+        <div class="fd-caption">Getting a little too into it.</div>
+      </div>
+    </div>
+
+    <div class="fd-post" data-track="ia" onclick="openLightbox(5)">
+      <div class="fd-img-wrap">
+        <img class="fd-img" src="assets/gallery/5.jpg" style="object-position:center 40%;" alt="">
+      </div>
+      <div class="fd-foot">
+        <div class="fd-actions">
+          <button class="fd-heart on" onclick="event.stopPropagation();heartPost(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="fd-tag" style="background:#F2ECFA;color:#6B3FA0;">Interior Arch · Day 4</span>
+        </div>
+        <div class="fd-nocap">No caption</div>
+      </div>
+    </div>
+
+    <div class="fd-post" data-track="final" onclick="openLightbox(6)">
+      <div class="fd-img-wrap">
+        <img class="fd-img" src="assets/gallery/6.jpg" style="object-position:center 50%;" alt="">
+      </div>
+      <div class="fd-foot">
+        <div class="fd-actions">
+          <button class="fd-heart on" onclick="event.stopPropagation();heartPost(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="fd-tag" style="background:#FDF6E3;color:#B88A00;">Final · Day 5</span>
+        </div>
+        <div class="fd-caption">Scene 02, Take 01. SDC '25.</div>
+      </div>
+    </div>
+
+    <div class="fd-post" data-track="gd" onclick="openLightbox(7)">
+      <div class="fd-img-wrap">
+        <img class="fd-img" src="assets/gallery/7.jpg" style="object-position:center 50%;" alt="">
+      </div>
+      <div class="fd-foot">
+        <div class="fd-actions">
+          <button class="fd-heart" onclick="event.stopPropagation();heartPost(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="fd-tag" style="background:#EAF4FB;color:#1A6FAA;">Graphic Design · Day 2</span>
+        </div>
+        <div class="fd-nocap">No caption</div>
+      </div>
+    </div>
+
+    <div class="fd-post" data-track="gd" onclick="openLightbox(8)">
+      <div class="fd-img-wrap">
+        <img class="fd-img" src="assets/gallery/8.jpg" style="object-position:center 40%;" alt="">
+      </div>
+      <div class="fd-foot">
+        <div class="fd-actions">
+          <button class="fd-heart on" onclick="event.stopPropagation();heartPost(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="fd-tag" style="background:#EAF4FB;color:#1A6FAA;">Graphic Design · Day 2</span>
+        </div>
+        <div class="fd-nocap">No caption</div>
+      </div>
+    </div>
+  </div>
+  <div style="height:22px;"></div>
+</div>
+
+<!-- Lightbox -->
+<div class="lb-overlay" id="lbOverlay" onclick="closeLightbox()">
+  <div class="lb-inner" onclick="event.stopPropagation()">
+    <button class="lb-close" onclick="closeLightbox()">
+      <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:white;fill:none;stroke-width:2;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <img class="lb-img" id="lbImg" src="" alt="">
+    <div class="lb-caption" id="lbCaption"></div>
+    <div class="lb-tag" id="lbTag"></div>
+    <div class="lb-nav">
+      <button class="lb-arr" onclick="lbNav(-1)">
+        <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:white;fill:none;stroke-width:2.5;"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="lb-arr" onclick="lbNav(1)">
+        <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:white;fill:none;stroke-width:2.5;"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="overlay" id="uploadOverlay" onclick="closeOverlay('uploadOverlay')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sh-handle"></div>
+    <div class="sh-title">Upload Work</div>
+    <div class="upload-tags"><div class="utag">Session 01</div><div class="utag">Group 07</div><div class="utag">July 13</div></div>
+    <div class="upload-zone"><div class="uz-c"><svg viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg></div><div class="uz-t">Tap to add photo</div><div class="uz-s">JPG or PNG only · Max 10MB<br>Photos of your physical work</div></div>
+    <input class="u-input" type="text" placeholder="Project title (optional, 50 chars)" maxlength="50">
+    <button class="u-submit" onclick="closeOverlay('uploadOverlay')">Submit for Review</button>
+  </div>
+</div>
+
+<!-- ======== PROFILE ======== -->
+<div class="page" id="page-profile">
+  <div class="prof-hero">
+    <div class="ph-bg"></div>
+    <div class="prof-av" style="background:linear-gradient(135deg,var(--orange),var(--orange-dk));">JC</div>
+    <div class="prof-name">Jordan Chen</div>
+    <div class="prof-pill" style="background:var(--orange-pale);border:1.5px solid rgba(255,130,0,.22);">
+      <div class="prof-dot" style="background:var(--orange);"></div>
+      <span style="font-family:var(--font-m);font-size:10px;color:var(--orange-dk);letter-spacing:.09em;text-transform:uppercase;">Architecture Track</span>
+    </div>
+    <div class="prof-grp">Group 07 · TA: Macy Steingrube · SDC! 2026</div>
+    <div class="prof-stats">
+      <div class="ps"><div class="ps-n">6</div><div class="ps-l">Uploads</div></div>
+      <div class="ps"><div class="ps-n">4</div><div class="ps-l">Sessions</div></div>
+      <div class="ps"><div class="ps-n">87</div><div class="ps-l">Likes</div></div>
+    </div>
+  </div>
+  <div class="prof-btns">
+    <button class="pb prim"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF Portfolio</button>
+    <button class="pb"><svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>Share</button>
+  </div>
+
+  <div class="sess-block">
+    <div class="sess-hd">
+      <div class="sess-nc" style="background:var(--orange-pale);color:var(--orange);">01</div>
+      <div><div class="sess-title">Site + Context</div><div class="sess-desc">Observation, sketching, and documentation of a campus site.</div></div>
+    </div>
+    <div class="sess-photos" style="grid-template-columns:2fr 1fr;">
+      <div class="sp tall" style="background:linear-gradient(135deg,#FFF3E6,#FFD9A8);">Photo 01</div>
+      <div class="sp" style="background:linear-gradient(135deg,#FFE8CC,#FFCF99);">02</div>
+      <div class="sp" style="background:linear-gradient(135deg,#FFD9A8,#FFBF77);">03</div>
+    </div>
+  </div>
+
+  <div class="sess-block">
+    <div class="sess-hd">
+      <div class="sess-nc" style="background:var(--orange-pale);color:var(--orange);">02</div>
+      <div><div class="sess-title">Material Study</div><div class="sess-desc">Cardboard model exploring structure, texture, and light.</div></div>
+    </div>
+    <div class="sess-photos" style="grid-template-columns:1fr 1fr 1fr;">
+      <div class="sp" style="background:linear-gradient(135deg,#EAF4FB,#C9E6F5);">Front</div>
+      <div class="sp" style="background:linear-gradient(135deg,#C9E6F5,#A8D8F0);">Side</div>
+      <div class="sp" style="background:linear-gradient(135deg,#A8D8F0,#87CAEB);">Top</div>
+    </div>
+  </div>
+
+  
+
+  <div class="book-wrap">
+    <div class="book-lbl">Camp Book · Print Template Preview</div>
+    <div class="book-pg">
+      <div class="book-hr">
+        <div><div class="book-nm">Jordan Chen</div><div style="font-family:var(--font-m);font-size:8.5px;color:var(--ink3);letter-spacing:.06em;margin-top:2px;">Architecture · Group 07 · SDC! 2026</div></div>
+        <div class="book-logo">SD<br><span class="c">C</span>!</div>
+      </div>
+      <div class="book-imgs"><div class="book-ib">photo 01</div><div class="book-ib">photo 02</div><div class="book-ib">photo 03</div><div class="book-ib">photo 04</div></div>
+      <div style="font-family:var(--font-b);font-size:9.5px;color:var(--ink3);line-height:1.55;margin:6px 0 8px;">Session 01, Site + Context. Observation and documentation of architectural form and material character across the campus environment.</div>
+      <div class="book-cap"><span>Summer Design Camp 2026 · UTK CoA+D</span><span>pg. 14</span></div>
+    </div>
+  </div>
+  <div style="height:22px;"></div>
+</div>
+
+<!-- ======== CAMPUS MAP ======== -->
+<div class="page" id="page-map">
+  <div class="pg-head">
+    <div class="pg-title">CAMPUS</div>
+    <div style="font-family:var(--font-m);font-size:10px;color:var(--ink3);letter-spacing:.07em;margin-top:4px;">Tap a location for info and walking time</div>
+  </div>
+  <div class="map-box">
+    <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;background:#e8f0e4;">
+      <rect x="0" y="0" width="400" height="260" fill="#e8f0e4"/>
+      <rect x="80" y="30" width="70" height="55" fill="#cce0c4" rx="5"/>
+      <rect x="195" y="20" width="100" height="65" fill="#cce0c4" rx="5"/>
+      <rect x="20" y="140" width="60" height="50" fill="#cce0c4" rx="5"/>
+      <rect x="282" y="145" width="88" height="60" fill="#cce0c4" rx="5"/>
+      <rect x="0" y="118" width="400" height="16" fill="#ddd5c8"/>
+      <rect x="170" y="0" width="14" height="260" fill="#ddd5c8"/>
+      <rect x="0" y="195" width="400" height="12" fill="#ddd5c8"/>
+      <rect x="100" y="0" width="10" height="260" fill="#ddd5c8"/>
+      <rect x="290" y="0" width="10" height="260" fill="#ddd5c8"/>
+      <text x="5" y="114" fill="#b0a898" font-size="7" font-family="monospace" letter-spacing="1">VOLUNTEER BLVD</text>
+      <!-- Magnolia Hall - left side (home base) -->
+      <rect x="20" y="38" width="56" height="38" fill="#f0e8d8" stroke="#c8b898" stroke-width="1" rx="3"/>
+      <text x="23" y="54" fill="#8a7a60" font-size="6.5" font-family="monospace" font-weight="bold">MAGNOLIA</text>
+      <text x="31" y="66" fill="#8a7a60" font-size="6.5" font-family="monospace">HALL</text>
+      <!-- TREC / Pool - left side, below Volunteer Blvd (RED in screenshot) -->
+      <rect x="20" y="134" width="68" height="44" fill="#d8eef8" stroke="#80b8d8" stroke-width="1" rx="3"/>
+      <text x="24" y="152" fill="#1a5a8a" font-size="6.5" font-family="monospace" font-weight="bold">TREC / POOL</text>
+      <text x="26" y="163" fill="#1a5a8a" font-size="6.5" font-family="monospace">REC CENTER</text>
+      <!-- Rocky Top Dining - center upper (GREEN in screenshot) -->
+      <rect x="198" y="28" width="82" height="48" fill="#d8eedd" stroke="#90c8a0" stroke-width="1" rx="3"/>
+      <text x="202" y="47" fill="#2a6a3a" font-size="6.5" font-family="monospace" font-weight="bold">ROCKY TOP</text>
+      <text x="208" y="58" fill="#2a6a3a" font-size="6.5" font-family="monospace">DINING</text>
+      <!-- Art + Architecture - right side (BLUE in screenshot) -->
+      <rect x="294" y="124" width="85" height="44" fill="#d8e8f8" stroke="#90b8d8" stroke-width="1" rx="3"/>
+      <text x="298" y="141" fill="#3a6a8a" font-size="6.5" font-family="monospace" font-weight="bold">ART+ARCH BLDG</text>
+      <text x="302" y="152" fill="#5a8aaa" font-size="6" font-family="monospace">1715 VOL BLVD</text>
+      <!-- Walking routes from Magnolia -->
+      <path d="M48,76 L48,118 L200,118" stroke="#FF8200" stroke-width="2" stroke-dasharray="5,3" fill="none" opacity=".55"/>
+      <path d="M48,134 L48,156" stroke="#1A6FAA" stroke-width="2" stroke-dasharray="5,3" fill="none" opacity=".55"/>
+      <path d="M184,76 L184,118 L294,118 L294,146" stroke="#1A6FAA" stroke-width="2" stroke-dasharray="5,3" fill="none" opacity=".45"/>
+      <!-- Pins -->
+      <circle cx="48" cy="57" r="10" fill="#FF8200" opacity=".92"/>
+      <text x="44" y="61" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">H</text>
+      <circle cx="54" cy="156" r="10" fill="#1A6FAA" opacity=".92"/>
+      <text x="50" y="160" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">T</text>
+      <circle cx="239" cy="52" r="10" fill="#2E7D46" opacity=".92"/>
+      <text x="235" y="56" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">D</text>
+      <circle cx="337" cy="146" r="10" fill="#1A6FAA" opacity=".92"/>
+      <text x="333" y="150" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">A</text>
+      <!-- You Are Here indicator (near Magnolia) -->
+      <circle cx="48" cy="57" r="18" fill="rgba(255,130,0,0.15)" opacity="0.8">
+        <animate attributeName="r" values="14;22;14" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.7;0.2;0.7" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="48" cy="57" r="7" fill="white" stroke="#FF8200" stroke-width="2"/>
+      <circle cx="48" cy="57" r="3.5" fill="#FF8200"/>
+      <!-- TA location indicator (slightly offset from student) -->
+      <circle cx="66" cy="52" r="5" fill="white" stroke="#6B3FA0" stroke-width="1.8"/>
+      <text x="63" y="55.5" fill="#6B3FA0" font-size="6" font-weight="bold" font-family="sans-serif">TA</text>
+      <!-- Legend -->
+      <rect x="6" y="236" width="380" height="20" fill="rgba(255,255,255,.7)" rx="3"/>
+      <circle cx="18" cy="246" r="5" fill="#FF8200"/><text x="27" y="249" fill="#5a5040" font-size="7" font-family="monospace">H=Magnolia</text>
+      <circle cx="97" cy="246" r="5" fill="#1A6FAA"/><text x="106" y="249" fill="#5a5040" font-size="7" font-family="monospace">T=TREC</text>
+      <circle cx="150" cy="246" r="5" fill="#2E7D46"/><text x="159" y="249" fill="#5a5040" font-size="7" font-family="monospace">D=Dining</text>
+      <circle cx="210" cy="246" r="5" fill="#1A6FAA"/><text x="219" y="249" fill="#5a5040" font-size="7" font-family="monospace">A=Art+Arch</text>
+      <circle cx="285" cy="246" r="4" fill="white" stroke="#FF8200" stroke-width="1.5"/><circle cx="285" cy="246" r="2" fill="#FF8200"/>
+      <text x="293" y="249" fill="#5a5040" font-size="7" font-family="monospace">You</text>
+      <circle cx="330" cy="246" r="4" fill="white" stroke="#6B3FA0" stroke-width="1.5"/>
+      <text x="338" y="249" fill="#5a5040" font-size="7" font-family="monospace">TA</text>
+    </svg>
+  </div>
+  <div class="loc-list">
+    <div class="lc-card"><div class="lc-circ" style="background:var(--orange-pale);"><svg style="stroke:var(--orange)" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="lc-name">Magnolia Hall</div><div class="lc-desc">Home base · Dorms · Check-in</div></div><div class="lc-walk"><div class="lc-wn">Home</div><div class="lc-wu">base</div></div></div>
+    <div class="lc-card"><div class="lc-circ" style="background:var(--blue-pale);"><svg style="stroke:var(--blue)" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><div><div class="lc-name">TREC / Pool</div><div class="lc-desc">Tennessee TREC · Pool · Evening activities</div></div><div class="lc-walk"><div class="lc-wn">~5</div><div class="lc-wu">min walk</div></div></div>
+    <div class="lc-card"><div class="lc-circ" style="background:var(--grn-pale);"><svg style="stroke:var(--green)" viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div><div><div class="lc-name">Rocky Top Dining</div><div class="lc-desc">Breakfast, Lunch + Dinner · Vol Card required</div></div><div class="lc-walk"><div class="lc-wn">~12</div><div class="lc-wu">min walk</div></div></div>
+    <div class="lc-card"><div class="lc-circ" style="background:var(--blue-pale);"><svg style="stroke:var(--blue)" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></div><div><div class="lc-name">Art + Architecture</div><div class="lc-desc">1715 Volunteer Blvd · Studios · Fab Lab</div></div><div class="lc-walk"><div class="lc-wn">~14</div><div class="lc-wu">min walk</div></div></div>
+  </div>
+  <div style="height:22px;"></div>
+</div>
+
+<!-- ======== ABOUT ======== -->
+<div class="page" id="page-about">
+  <div class="pg-head">
+    <div class="pg-title">ABOUT</div>
+    <div style="height:12px;"></div>
+    <div class="about-tabs">
+      <button class="at on" onclick="aTab('sdc',this)">SDC!</button>
+      <button class="at" onclick="aTab('programs',this)">Programs</button>
+      <button class="at" onclick="aTab('building',this)">The Building</button>
+      <button class="at" onclick="aTab('culture',this)">UT + Knoxville</button>
+    </div>
+  </div>
+
+  <!-- SDC Panel -->
+  <div class="about-panel on" id="panel-sdc">
+    <div class="college-intro">
+      <div class="ci-bg1"></div><div class="ci-bg2"></div>
+      <div class="ci-title">Summer Design Camp</div>
+      <div class="ci-sub">UTK College of Architecture + Design · 2026</div>
+      <div class="ci-body">170 high school students. 7 days. 4 design disciplines. 12 groups, each run by a teaching assistant. This is your first real look at what designing for a living actually feels like.</div>
+    </div>
+
+    <div class="section-label" style="margin-top:4px;">Camp Director</div>
+    <div class="staff-card" onclick="openPerson('ac','staff')">
+      <div class="sc-av" style="background:linear-gradient(135deg,var(--orange),var(--orange-dk));">AC</div>
+      <div><div class="sc-name">Anja Cordell</div><div class="sc-role">Camp Director</div><div class="sc-bio">UTK Landscape Architecture alumna, 2025. Runs all camp operations from logistics to programming.</div></div>
+    </div>
+
+    <div class="section-label">Academic Advisors</div>
+    <div class="staff-card" onclick="openPerson('jb1','staff')">
+      <div class="sc-av" style="background:linear-gradient(135deg,var(--blue),#145a84);">JB</div>
+      <div><div class="sc-name">Jessica Bocangel</div><div class="sc-role">Academic + Professional Dev Advisor</div><div class="sc-bio">B.Arch UTK 2006, Summa Cum Laude. Practiced at Design Innovation Architects, then led a non-profit focused on housing for people experiencing chronic homelessness. Habla español.</div></div>
+    </div>
+    <div class="staff-card" onclick="openPerson('jb2','staff')">
+      <div class="sc-av" style="background:linear-gradient(135deg,var(--green),#1e5e30);">JB</div>
+      <div><div class="sc-name">Julie Beckman</div><div class="sc-role">Director of Student Services</div><div class="sc-bio">Designer of the 9/11 Pentagon Memorial and Space Shuttle Columbia Memorial. MArch, Columbia University. Co-founder of KBAS.</div></div>
+    </div>
+    <div class="staff-card" onclick="openPerson('dm','staff')">
+      <div class="sc-av" style="background:linear-gradient(135deg,var(--purple),#4e2880);">DM</div>
+      <div><div class="sc-name">DeMauri Murray</div><div class="sc-role">Academic Advisor</div><div class="sc-bio">Supports CoA+D students across all programs with a focus on equity, student success, and pathways into the design professions.</div></div>
+    </div>
+
+    <div class="section-label">Teaching Assistants</div>
+    <div class="staff-card" onclick="openPerson('ms','staff')">
+      <div class="sc-av" style="background:linear-gradient(135deg,var(--orange),#c87030);">MS</div>
+      <div><div class="sc-name">Macy Steingrube</div><div class="sc-role">Teaching Assistant</div><div class="sc-bio">Studio facilitator and camp counselor for Groups 05 and 07.</div></div>
+    </div>
+    <div class="staff-card" onclick="openPerson('sb','staff')">
+      <div class="sc-av" style="background:linear-gradient(135deg,var(--blue),#1a5080);">SB</div>
+      <div><div class="sc-name">Sam Brott</div><div class="sc-role">Teaching Assistant</div><div class="sc-bio">Studio and logistics support across all four discipline days.</div></div>
+    </div>
+    <div class="staff-card" style="border-style:dashed;opacity:.55;">
+      <div class="sc-av" style="background:var(--ink3);">+</div>
+      <div><div class="sc-name">More TAs</div><div class="sc-role">Teaching Assistants · TBD</div><div class="sc-bio">Full TA roster fills in once confirmed. 12 groups means at least 12 TAs.</div></div>
+    </div>
+
+    <div class="section-label">Floaters</div>
+    <div class="staff-card" onclick="openPerson('cw','staff')">
+      <div class="sc-av" style="background:linear-gradient(135deg,#E8627A,#C0415A);">CW</div>
+      <div><div class="sc-name">Cora Williams</div><div class="sc-role">Floater · Logistics Support</div><div class="sc-bio">Handles resources, supply runs, and flexible support all week.</div></div>
+    </div>
+    <div class="staff-card" onclick="openPerson('mj','staff')">
+      <div class="sc-av" style="background:linear-gradient(135deg,var(--gold),#8a6800);">MJ</div>
+      <div><div class="sc-name">Melani Jimenez</div><div class="sc-role">Floater · Logistics Support</div><div class="sc-bio">Resource coordination and on-the-ground support throughout the week.</div></div>
+    </div>
+    <div style="height:12px;"></div>
+  </div>
+
+  <!-- Programs Panel -->
+  <div class="about-panel" id="panel-programs">
+    <div class="prog-card" id="pc-arch">
+      <div class="prog-hd" onclick="toggleProg('pc-arch')">
+        <div class="prog-circ" style="background:var(--orange-pale);color:var(--orange);">A</div>
+        <div><div class="prog-name">Architecture</div><div class="prog-deg">B.Arch (5yr) · M.Arch · NAAB</div></div>
+        <svg class="prog-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="prog-body">
+        <div class="prog-desc">The 5-year B.Arch goes straight to licensure. It's studio-based, rigorous, and built around designing things that will actually be built. You'll work with drawing, modeling, fabrication, and construction. Access to a 22,000 sq ft Fab Lab with CNC mills, laser cutters, and 3D printers.</div>
+        <div class="section-label" style="margin-top:4px;">Faculty</div>
+        <div class="people-carousel">
+          <div class="person-card" onclick="openPerson('jmagner','arch')"><div class="pc-av" style="background:linear-gradient(135deg,var(--orange),var(--orange-dk));">JM</div><div class="pc-name">Jeremy Magner</div><div class="pc-role">Assistant Professor</div><div class="pc-bio">Challenges the line between designer and builder. Former artist-in-residence at Autodesk Pier 9. Worked at Gensler, Morphosis, and Machineous.</div></div>
+          <div class="person-card" onclick="openPerson('mstanley','arch')"><div class="pc-av" style="background:linear-gradient(135deg,var(--blue),#145a84);">MS</div><div class="pc-name">Mark Stanley</div><div class="pc-role">Assistant Professor</div><div class="pc-bio">Co-founder of StudioMARS. Studies architecture's relationship to larger systems of culture, technology, and ecology through speculative design.</div></div>
+          <div class="person-card" onclick="openPerson('fhsu','arch')"><div class="pc-av" style="background:linear-gradient(135deg,var(--green),#1e5e30);">FH</div><div class="pc-name">Frances Hsu</div><div class="pc-role">Assistant Professor</div><div class="pc-bio">Licensed architect and scholar. Former designer at OMA and UN Studio. Work published in JAE and The Cambridge Architectural Journal.</div></div>
+          <div class="person-card" onclick="openPerson('swall','arch')"><div class="pc-av" style="background:linear-gradient(135deg,var(--purple),#4e2880);">SW</div><div class="pc-name">Scott Wall</div><div class="pc-role">Professor</div><div class="pc-bio">Registered architect, author, and artist. Taught at Rice, Georgia Tech, and Tulane. Former interim director of the School of Architecture.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prog-card" id="pc-gd">
+      <div class="prog-hd" onclick="toggleProg('pc-gd')">
+        <div class="prog-circ" style="background:var(--blue-pale);color:var(--blue);">GD</div>
+        <div><div class="prog-name">Graphic Design</div><div class="prog-deg">BFA in Graphic Design</div></div>
+        <svg class="prog-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="prog-body">
+        <div class="prog-desc">Added to CoA+D in 2019. Covers typography, identity, motion, interaction, and publishing. Portfolio review required to advance. Graduates go into design studios, agencies, UX, film, and game studios.</div>
+        <div class="section-label" style="margin-top:4px;">Faculty</div>
+        <div class="people-carousel">
+          <div class="person-card" onclick="openPerson('ccote','gd')"><div class="pc-av" style="background:linear-gradient(135deg,var(--blue),#145a84);">CC</div><div class="pc-name">Chris Cote</div><div class="pc-role">Assistant Professor</div><div class="pc-bio">MFA from RISD. Studies alternative publishing through interactive installations and public interventions. Teaches typography, information design, and the capstone.</div></div>
+          <div class="person-card" onclick="openPerson('eepstein','gd')"><div class="pc-av" style="background:linear-gradient(135deg,var(--green),#1e5e30);">EE</div><div class="pc-name">Everett Epstein</div><div class="pc-role">Lecturer</div><div class="pc-bio">Former brand designer at Gensler London for LEGO, Netflix, and P&G. MFA from RISD. Focuses on web design, typography, and grammar.</div></div>
+          <div class="person-card" onclick="openPerson('kmitchell','gd')"><div class="pc-av" style="background:linear-gradient(135deg,var(--orange),var(--orange-dk));">KM</div><div class="pc-name">Kimberly Mitchell</div><div class="pc-role">Assistant Professor</div><div class="pc-bio">Founder of the Design for Care Lab. Research on design, aging, and health. Known campus-wide as one of the best teachers in the building.</div></div>
+          <div class="person-card" onclick="openPerson('lbrine','gd')"><div class="pc-av" style="background:linear-gradient(135deg,#E8627A,#C0415A);">LB</div><div class="pc-name">Lindsay Brine</div><div class="pc-role">Associate Prof. of Practice</div><div class="pc-bio">UTK alumna. Former Creative Director at Designsensory. 18 years of agency experience. 2020 AAF-Knoxville Hall of Fame inductee.</div></div>
+          <div class="person-card" onclick="openPerson('cstaples','gd')"><div class="pc-av" style="background:linear-gradient(135deg,var(--purple),#4e2880);">CS</div><div class="pc-name">Cary Staples</div><div class="pc-role">Professor</div><div class="pc-bio">Co-founder of APP.FARM. NSF-funded research at the intersection of design, data, and technology. Board games, VR, and public experience design.</div></div>
+          <div class="person-card" onclick="openPerson('tarment','gd')"><div class="pc-av" style="background:linear-gradient(135deg,var(--gold),#8a6800);">TA</div><div class="pc-name">Tim Arment</div><div class="pc-role">Digital Futures Fellow</div><div class="pc-bio">MFA from UW-Madison. Works at the edge of 3D animation, VR, and fine art. Co-created the 4D foundations course with Mitchell and Cote.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prog-card" id="pc-ia">
+      <div class="prog-hd" onclick="toggleProg('pc-ia')">
+        <div class="prog-circ" style="background:var(--pur-pale);color:var(--purple);">IA</div>
+        <div><div class="prog-name">Interior Architecture</div><div class="prog-deg">BS in Interior Architecture · Est. 1997</div></div>
+        <svg class="prog-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="prog-body">
+        <div class="prog-desc">Joined CoA+D in 1997. Focuses on the design of inhabited space, from residential and commercial interiors to healthcare environments. Technical, material-driven, and deeply human-centered.</div>
+        <div class="section-label" style="margin-top:4px;">Faculty</div>
+        <div class="people-carousel">
+          <div class="person-card" onclick="openPerson('fdean','ia')"><div class="pc-av" style="background:linear-gradient(135deg,var(--purple),#4e2880);">FD</div><div class="pc-name">Felicia Dean</div><div class="pc-role">Assistant Professor</div><div class="pc-bio">Graham Foundation grant recipient. Research on material identity, craft, and space-making through a bi-racial, cross-cultural lens. 2024 IDEC Teaching Excellence Award.</div></div>
+          <div class="person-card" onclick="openPerson('hkim','ia')"><div class="pc-av" style="background:linear-gradient(135deg,var(--blue),#145a84);">HK</div><div class="pc-name">Hojung Kim</div><div class="pc-role">Assistant Professor</div><div class="pc-bio">Co-founder of the MM Lab. Research on material practices in Southeast Asia, examining how craft traditions resist globalized production pressures.</div></div>
+          <div class="person-card" onclick="openPerson('lteston','ia')"><div class="pc-av" style="background:linear-gradient(135deg,var(--warm),#6e3520);">LT</div><div class="pc-name">Liz Teston</div><div class="pc-role">Associate Professor</div><div class="pc-bio">Research on public interiority and the politics of design. Organizer of the 2023 Public Interiority Symposium. SCAD BFA in Interior Design.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prog-card" id="pc-la">
+      <div class="prog-hd" onclick="toggleProg('pc-la')">
+        <div class="prog-circ" style="background:var(--grn-pale);color:var(--green);">LA</div>
+        <div><div class="prog-name">Landscape Architecture</div><div class="prog-deg">MLA · MS Landscape Arch · Est. 2008</div></div>
+        <svg class="prog-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="prog-body">
+        <div class="prog-desc">Launched in 2008 in partnership with the Herbert College of Agriculture. Sits at the intersection of ecology, design, and public space. UTK's mountain and river setting makes it a natural laboratory for this kind of work.</div>
+        <div class="section-label" style="margin-top:4px;">Faculty</div>
+        <div class="people-carousel">
+          <div class="person-card" onclick="openPerson('amadl','la')"><div class="pc-av" style="background:linear-gradient(135deg,var(--green),#1e5e30);">AM</div><div class="pc-name">Andrew Madl</div><div class="pc-role">Assistant Professor</div><div class="pc-bio">2025 Dudley Scholar. Pursuing speculative research called Wild Data, examining how data infrastructure reshapes the way we coexist with landscape.</div></div>
+          <div class="person-card" onclick="openPerson('sbolivar','la')"><div class="pc-av" style="background:linear-gradient(135deg,var(--teal,#1A8A7A),#10605a);" style="background:linear-gradient(135deg,#1A8A7A,#10605a);">SB</div><div class="pc-name">Sarah Bolivar</div><div class="pc-role">Assistant Professor</div><div class="pc-bio">Research on migrating plants, wildlife, and community-based landscape conservation. Former work with the Central Park Conservancy and Snohetta.</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="height:12px;"></div>
+  </div>
+
+  <!-- Building Panel -->
+  <div class="about-panel" id="panel-building">
+    <div class="building-card">
+      <div class="bc-deco" style="width:200px;height:200px;background:rgba(255,130,0,.06);top:-60px;right:-60px;"></div>
+      <div class="bc-deco" style="width:120px;height:120px;border:1.5px solid rgba(255,130,0,.12);bottom:-30px;left:20px;"></div>
+      <div class="bc-inner">
+        <div class="bc-ey">1715 Volunteer Blvd · Knoxville, TN</div>
+        <div class="bc-title">The Art + Architecture Building</div>
+        <div class="bc-stats">
+          <div class="bc-stat"><div class="bc-sn">160K</div><div class="bc-su">sq ft</div></div>
+          <div class="bc-stat"><div class="bc-sn">360</div><div class="bc-su">ft atrium</div></div>
+          <div class="bc-stat"><div class="bc-sn">1981</div><div class="bc-su">opened</div></div>
+          <div class="bc-stat"><div class="bc-sn">450+</div><div class="bc-su">desks</div></div>
+        </div>
+        <div class="bc-body">The building you'll spend most of your week in is itself worth studying. It's a Brutalist concrete-and-glass structure that won a national competition in 1977, beating out 52 other submissions. It's the only building on UT's campus chosen this way.<br><br>The architects were Bruce McCarty and his son Doug McCarty, a UTK graduate who helped design his own school's building. Bruce McCarty was already one of Knoxville's most respected architects, known for bold cantilevers and buildings that played seriously with light. The defining move inside is a 360-foot atrium running the full length of the building, open four stories up, filled with natural light from above. Every studio floor overlooks it.<br><br>Not everyone loved the exterior at first. The raw concrete Brutalism was controversial enough that McCarty said in a later interview he might choose a different material if he did it again. But the interior works. A building that teaches you something about space just by being in it is a good place to study design.<br><br>At the 1981 dedication, Chancellor Jack Reese got a laugh noting that UT's fall traditions had come to include "pep rallies, football games, and construction of the Art/Architecture building." Ground had been broken in 1977, and delays pushed completion back two years.<br><br>Today the building has 450+ student workstations, a woodshop, fabrication spaces, the Digital Futures Lab with AR/VR equipment, McCarty Auditorium, gallery spaces, and the Center for Student Development on the ground floor where camp advisors work. A separate 22,000 sq ft Fab Lab in a renovated downtown building adds more tools.</div>
+      </div>
+    </div>
+    <div style="height:12px;"></div>
+  </div>
+
+  <!-- Culture Panel -->
+  <div class="about-panel" id="panel-culture">
+    <div class="cul-card">
+      <div class="cul-img" style="background:linear-gradient(135deg,#FFF3E6,#FFD0A0);">
+        <div class="cul-deco" style="width:140px;height:140px;background:rgba(255,130,0,.14);top:-40px;right:-30px;"></div>
+        <div class="cul-deco" style="width:80px;height:80px;border:1.5px dashed rgba(255,130,0,.28);bottom:-20px;left:20px;"></div>
+        <div style="font-family:var(--font-d);font-size:52px;font-weight:900;font-style:italic;color:rgba(255,130,0,.18);position:relative;z-index:1;">UT</div>
+      </div>
+      <div class="cul-body"><div class="cul-title" style="color:var(--orange);">University of Tennessee, Knoxville</div><div class="cul-text">Founded in 1794 as Blount College, which makes it older than the state of Tennessee. UTK's 550-acre campus sits at the foot of the Smoky Mountains with about 36,000 students across 14 colleges. It's a Carnegie R1 research institution, which means faculty here are doing nationally significant work and students get to be part of it.</div></div>
+    </div>
+    <div class="cul-card">
+      <div class="cul-img" style="background:linear-gradient(135deg,#F5F0E8,#E0D8C8);">
+        <div class="cul-deco" style="width:100px;height:100px;background:rgba(200,150,12,.09);top:-20px;left:-20px;"></div>
+        <div style="font-family:var(--font-d);font-size:34px;font-weight:900;font-style:italic;color:rgba(180,140,0,.18);position:relative;z-index:1;">THE ROCK</div>
+      </div>
+      <div class="cul-body"><div class="cul-title">The Rock</div><div class="cul-text">A campus landmark that gets repainted nearly every day. Student groups, teams, and individuals paint it to announce events, celebrate wins, or just leave their mark. You walk past it on the way to the A+A Building. On Friday it will almost certainly look different than it did on Monday.</div></div>
+    </div>
+    <div class="cul-card">
+      <div class="cul-img" style="background:linear-gradient(135deg,#EAF5EE,#C8E8D0);">
+        <div class="cul-deco" style="width:120px;height:120px;background:rgba(46,125,70,.07);bottom:-30px;right:-20px;"></div>
+        <div style="font-family:var(--font-d);font-size:32px;font-weight:900;font-style:italic;color:rgba(46,125,70,.18);position:relative;z-index:1;">ROCKY TOP</div>
+      </div>
+      <div class="cul-body"><div class="cul-title">Rocky Top + Neyland Stadium</div><div class="cul-text">Rocky Top is not just a song here, it's a reflex. Neyland Stadium on the Tennessee River is one of the largest in the country. On game days the Vol Walk is a river of orange stretching across campus. Even if football isn't your thing, it's something to see at least once.</div></div>
+    </div>
+    <div class="cul-card">
+      <div class="cul-img" style="background:linear-gradient(135deg,#EAF4FB,#C0DDF5);">
+        <div class="cul-deco" style="width:90px;height:90px;border:1.5px solid rgba(26,111,170,.2);top:-15px;right:30px;"></div>
+      </div>
+      <div class="cul-body"><div class="cul-title">Knoxville + The Smokies</div><div class="cul-text">Third-largest city in Tennessee with a growing creative and maker scene. The Great Smoky Mountains National Park, the most-visited in the country, is 30 minutes away. The natural environment here is not just scenery. It shows up in how students think about design.</div></div>
+    </div>
+    <div style="height:12px;"></div>
+  </div>
+</div>
+
+<!-- Person modal -->
+<div class="person-modal" id="personModal" onclick="closePersonModal()">
+  <div class="pm-sheet" onclick="event.stopPropagation()">
+    <div class="pm-handle"></div>
+    <div id="pmContent"></div>
+    <button class="pm-close" onclick="closePersonModal()">Close</button>
+  </div>
+</div>
+
+<!-- Poll overlay -->
+<div class="overlay" id="pollOverlay" onclick="closeOverlay('pollOverlay')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sh-handle"></div>
+    <div style="font-family:var(--font-m);font-size:10px;color:var(--orange);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;">Tonight's Poll · Open Until 5 PM</div>
+    <div class="poll-q">What are you doing tonight?</div>
+    <div class="poll-meta">Sunday, July 12 · 82 of 170 voted</div>
+    <div class="poll-opt" onclick="pickPoll(this)" data-p="38"><div class="poll-bar" style="width:38%;"></div><div class="poll-oc">🏊</div><div class="poll-ot">Pool / TREC</div><div class="poll-op">38%</div></div>
+    <div class="poll-opt" onclick="pickPoll(this)" data-p="24"><div class="poll-bar" style="width:24%;"></div><div class="poll-oc">🎬</div><div class="poll-ot">Movie Night</div><div class="poll-op">24%</div></div>
+    <div class="poll-opt" onclick="pickPoll(this)" data-p="21"><div class="poll-bar" style="width:21%;"></div><div class="poll-oc">🚶</div><div class="poll-ot">Campus Walk</div><div class="poll-op">21%</div></div>
+    <div class="poll-opt" onclick="pickPoll(this)" data-p="17"><div class="poll-bar" style="width:17%;"></div><div class="poll-oc">🛌</div><div class="poll-ot">Stay in Dorm</div><div class="poll-op">17%</div></div>
+    <button class="poll-sub" onclick="submitPoll()">Cast Vote</button>
+  </div>
+</div>
+
+
+<script>
+// ---- TRACK CONFIG ----
+const TC = {
+  sunday:    {name:'Arrival Day',            c:'#6B6257', p:'#EDE8DF', cl:'track-free'},
+  monday:    {name:'Architecture Day',       c:'#FF8200', p:'#FFF3E6', cl:'track-arch'},
+  tuesday:   {name:'Graphic Design Day',     c:'#1A6FAA', p:'#EAF4FB', cl:'track-gd'},
+  wednesday: {name:'Landscape Architecture', c:'#2E7D46', p:'#EAF5EE', cl:'track-la'},
+  thursday:  {name:'Interior Architecture',  c:'#6B3FA0', p:'#F2ECFA', cl:'track-ia'},
+  friday:    {name:'Final Project Day',      c:'#B88A00', p:'#FDF6E3', cl:'track-final'},
+  saturday:  {name:'Departure Day',          c:'#6B6257', p:'#EDE8DF', cl:'track-free'},
+};
+const DAYS = [
+  {k:'sunday',   a:'SUN', d:'12'},
+  {k:'monday',   a:'MON', d:'13'},
+  {k:'tuesday',  a:'TUE', d:'14'},
+  {k:'wednesday',a:'WED', d:'15'},
+  {k:'thursday', a:'THU', d:'16'},
+  {k:'friday',   a:'FRI', d:'17'},
+  {k:'saturday', a:'SAT', d:'18'},
+];
+
+const SCHED = {
+  sunday:[
+    {t:'3:00 PM', n:'Check-In + Move In', type:'arrival', loc:'Magnolia Hall Lobby', desc:'Pick up your room key and get settled in. TAs are around to help. Come by the front desk first.', mats:[], charrette:null},
+    {t:'5:30 PM', n:'Dinner', type:'meal', loc:'Rocky Top Dining Center', desc:'First meal. Swipe your Vol Card at the door.', mats:[], charrette:null},
+    {t:'7:00 PM', n:'Opening Lecture + Kickoff', type:'lecture', loc:'McCarty Auditorium, A+A Building', desc:'Welcome to SDC! 2026. Hear from program directors, meet your advisors and TAs, and get a clear picture of the week. All 12 groups together.', mats:[], charrette:null},
+    {t:'8:30 PM', n:'Evening Activity', type:'free', loc:"See Tonight's Poll", desc:'Check the poll result and head to your choice. TAs stationed at each option.', mats:[], charrette:null},
+    {t:'10:30 PM',n:'Lights Out', type:'free', loc:'Magnolia Hall', desc:'Rest up. Monday is a full day.', mats:[], charrette:null},
+  ],
+  monday:[
+    {t:'7:30 AM', n:'Breakfast', type:'meal', loc:'Rocky Top Dining', desc:'Served 7:30 to 9:00 AM.', mats:[], charrette:null},
+    {t:'9:00 AM', n:'Architecture Brief + Lecture', type:'lecture', loc:'Art + Architecture Building', desc:'What is architecture? What does it mean to design a building, and who is it actually for? Faculty-led discussion followed by your first brief of the week.', mats:['Sketchbook + pencils','SDC field guide'], charrette:null},
+    {t:'10:30 AM',n:'Charrette 01: Site Observation', type:'studio', loc:'Campus + A+A Studios', desc:'Go observe a site on campus. Sketch it. Photograph it. Look at how a building meets the ground, how it handles light, who it\'s for and who it leaves out. Your group has a color prompt. Use it as a lens.\n\nThis is individual work. Move fast. Make bad drawings. That\'s the point.', mats:['Sketchbook','Phone for photos','Campus pass'], charrette:'mon_1'},
+    {t:'12:30 PM',n:'Lunch', type:'meal', loc:'Rocky Top Dining', desc:'', mats:[], charrette:null},
+    {t:'2:00 PM', n:'Charrette 02: Massing Model', type:'studio', loc:'Studios + Fab Lab', desc:'Take your site observations and start building a small massing model. Cardboard, foam, chipboard. Think about mass, void, entry, and light. Stay loose. This model will change.', mats:['Cardboard + foam core','X-acto knife + cutting mat','Glue gun','Trace paper'], charrette:'mon_2'},
+    {t:'4:30 PM', n:'Jam Session', type:'social', loc:'Main Studio · A+A Building', desc:'Pin up your work from the day. Everyone walks the room and puts a sticker next to the work that stopped them. No presentations, no talking. Just looking.\n\nThe stickers are yours to keep. They\'re not grades. They\'re moments of recognition from your peers.', mats:['All work pinned up','Stickers from your TA'], charrette:null},
+    {t:'5:30 PM', n:'Dinner', type:'meal', loc:'Rocky Top Dining', desc:'', mats:[], charrette:null},
+    {t:'7:30 PM', n:'Evening Activity', type:'free', loc:"See Tonight's Poll", desc:'', mats:[], charrette:null},
+  ],
+  tuesday:[
+    {t:'7:30 AM', n:'Breakfast', type:'meal', loc:'Rocky Top Dining', desc:'', mats:[], charrette:null},
+    {t:'9:00 AM', n:'Graphic Design Brief + Lecture', type:'lecture', loc:'Design Lab A, A+A Building', desc:'Graphic design is the design of communication: how words, images, and form carry meaning. Today you work with type, layout, color, and image. Faculty walks through the day\'s brief.', mats:['Sketchbook','Pencils + markers'], charrette:null},
+    {t:'10:30 AM',n:'Charrette 03: Type + Image', type:'studio', loc:'Design Lab A', desc:'Your group has a word. Using only black marker on white paper, design a composition that communicates what the word means, not just what it says. No computers. Your tools are your hand and the page.\n\nMake 10 versions fast. Then pick the three that work best.', mats:['Black marker, thick','White paper, lots of it','Ruler'], charrette:'tue_1'},
+    {t:'12:30 PM',n:'Lunch', type:'meal', loc:'Rocky Top Dining', desc:'', mats:[], charrette:null},
+    {t:'2:00 PM', n:'Charrette 04: Color System', type:'studio', loc:'Design Lab A', desc:'Bring color in now. Your group\'s color prompt from Monday applies here too. Build a small visual system: three compositions that feel like they belong together. Think about what makes things cohesive.', mats:['Colored paper','Scissors + glue','Markers'], charrette:'tue_2'},
+    {t:'4:30 PM', n:'Jam Session', type:'social', loc:'Design Lab A', desc:'Pin your compositions on the wall. Everyone takes a walk through. Stickers go next to work that communicates something clearly. Then two minutes: each person says what they noticed in someone else\'s work, not their own.', mats:['Work pinned up','Stickers from your TA'], charrette:null},
+    {t:'5:30 PM', n:'Dinner', type:'meal', loc:'Rocky Top Dining', desc:'', mats:[], charrette:null},
+    {t:'7:00 PM', n:'Campus Tour: The Rock + Vol Walk', type:'social', loc:'Meet at Magnolia entrance', desc:'TAs lead a walking tour of key campus spots. The Rock, Ayres Hall, Circle Park, the Tennessee River waterfront. About 1.5 miles of walking.', mats:['Comfortable shoes','Water bottle'], charrette:null},
+  ],
+  wednesday:[
+    {t:'7:30 AM', n:'Breakfast', type:'meal', loc:'Rocky Top Dining', desc:'', mats:[], charrette:null},
+    {t:'9:00 AM', n:'Landscape Architecture Brief + Lecture', type:'lecture', loc:'A+A Building', desc:'What does it mean to design the land itself? Landscape architecture sits at the intersection of ecology, infrastructure, and public space. Today\'s brief asks you to think about a site as a living system.', mats:['Sketchbook','Pencils'], charrette:null},
+    {t:'10:30 AM',n:'Charrette 05: Site Systems', type:'studio', loc:'Campus + A+A Studios', desc:'Go outside. Find a site on or near campus. Map it as a system, not just a picture. Where does water go? Where do people walk? Where does shade fall at noon? Where do things grow? Sketches, diagrams, and photos.', mats:['Sketchbook','Phone for photos','Measuring tape'], charrette:'wed_1'},
+    {t:'12:30 PM',n:'Lunch', type:'meal', loc:'Rocky Top Dining', desc:'', mats:[], charrette:null},
+    {t:'2:00 PM', n:'Mid-Week Critique', type:'studio', loc:'Main Crit Space, A+A Building', desc:'Pin up your three days of work. Architecture models, GD compositions, landscape diagrams. This is not a grade. It\'s a conversation. Present your work. Talk about what surprised you. Ask a real question to someone else.\n\nEach person: 2 minutes to present, 4 minutes of group response.', mats:['All work pinned and ready'], charrette:'wed_2'},
+    {t:'4:30 PM', n:'Jam Session', type:'social', loc:'A+A Crit Space', desc:'After the mid-week critique, a quick sticker walk. Focus on the work that evolved the most since Monday. What changed? Stickers go to the biggest leaps.', mats:['Work pinned','Stickers'], charrette:null},
+    {t:'5:30 PM', n:'Dinner', type:'meal', loc:'Rocky Top Dining', desc:'', mats:[], charrette:null},
+    {t:'7:30 PM', n:'Evening Activity', type:'free', loc:"See Tonight's Poll", desc:'', mats:[], charrette:null},
+  ],
+  thursday:[
+    {t:'7:30 AM', n:'Breakfast', type:'meal', loc:'Rocky Top Dining', desc:'', mats:[], charrette:null},
+    {t:'9:00 AM', n:'Interior Architecture Brief + Lecture', type:'lecture', loc:'A+A Building', desc:'Interior architecture is the design of the spaces people actually live inside. How a room shapes movement, mood, and behavior. Today: light, material, threshold, and sequence.', mats:['Sketchbook'], charrette:null},
+    {t:'10:30 AM',n:'Charrette 06: Space + Light', type:'studio', loc:'Studios', desc:'Design a room. Not a floor plan but a spatial experience. What does it feel like to walk in? Where does light come from? What\'s the floor material? Draw it in section, not plan. Show how light moves through it at different times of day.', mats:['Trace paper','Pencils + markers','Color pencils'], charrette:'thu_1'},
+    {t:'12:30 PM',n:'Lunch', type:'meal', loc:'Rocky Top Dining', desc:'', mats:[], charrette:null},
+    {t:'2:00 PM', n:'Charrette 07: Material + Atmosphere', type:'studio', loc:'Studios + Fab Lab', desc:'Take your section drawing and build a small physical model of one corner of the room. Focus on one material decision. How does it interact with the light you designed in the morning? Document at multiple stages.', mats:['Foam, cardboard, or chipboard','Pencil light source (phone torch)','Camera'], charrette:'thu_2'},
+    {t:'4:30 PM', n:'Jam Session', type:'social', loc:'Studios', desc:'Final jam session of the week. This one matters a bit more. Stickers as always, but TAs will also note which pieces are going into the book. Make sure everything is photographed and uploaded before 9 PM tonight.', mats:['All work displayed','Upload your photos before 9 PM'], charrette:null},
+    {t:'5:30 PM', n:'Dinner', type:'meal', loc:'Rocky Top Dining', desc:'', mats:[], charrette:null},
+    {t:'7:00 PM', n:'Upload + Portfolio Night', type:'studio', loc:'Design Lab B + Studios', desc:'Open studio for documentation, uploads, and final refinements. Upload deadline is 9 PM tonight. TAs and advisors available.', mats:['Completed work','Phone'], charrette:null},
+  ],
+  friday:[
+    {t:'7:30 AM', n:'Breakfast', type:'meal', loc:'Rocky Top Dining', desc:'Last breakfast before presentations.', mats:[], charrette:null},
+    {t:'9:00 AM', n:'Final Presentations', type:'studio', loc:'Main Crit Space + Design Lab A', desc:'Closing critique. All groups present. Faculty, TAs, and guest critics in the room.\n\nPresent your full week of work. Talk about it as a sequence from Monday through Thursday. What changed? What surprised you? What would you do differently? Four minutes per person.', mats:['All work installed'], charrette:null},
+    {t:'12:00 PM',n:'Lunch + Awards', type:'social', loc:'A+A Courtyard', desc:'Outdoor lunch with faculty. Recognition for standout work, most improved, and peer-voted gallery favorites.', mats:[], charrette:null},
+    {t:'2:00 PM', n:'Portfolio + Book Preview', type:'social', loc:'Design Lab B', desc:'View the camp book layout. Download your personal portfolio PDF. Advisors available for one-on-one conversations about next steps, programs, and applications.', mats:[], charrette:null},
+    {t:'4:00 PM', n:'Free Time', type:'free', loc:'Campus', desc:'', mats:[], charrette:null},
+    {t:'5:30 PM', n:'Final Dinner', type:'meal', loc:'Rocky Top Dining', desc:'Last dinner with the full group.', mats:[], charrette:null},
+    {t:'7:00 PM', n:'Closing Celebration', type:'social', loc:'A+A Rooftop / Courtyard', desc:'Informal gathering. Music, food, and the SDC tradition: everyone signs everyone\'s sketchbook.', mats:['Your sketchbook','A pen'], charrette:null},
+  ],
+  saturday:[
+    {t:'7:30 AM', n:'Last Breakfast', type:'meal', loc:'Rocky Top Dining', desc:'Checkout by 11 AM.', mats:[], charrette:null},
+    {t:'9:00 AM', n:'Pack Out + Checkout', type:'free', loc:'Magnolia Hall', desc:'Return your room key at the front desk. Staff available until noon. Make sure you have all your work and materials with you.', mats:['Room key','All belongings','Portfolio work'], charrette:null},
+    {t:'10:00 AM',n:'Portfolio PDF Available', type:'free', loc:'SDC App · Profile tab', desc:'Your personal portfolio PDF is available to download from the Profile tab. You\'ll also get it by email.', mats:[], charrette:null},
+    {t:'11:00 AM',n:'Departure', type:'free', loc:'Magnolia Hall', desc:'Safe travels. Go make something.', mats:[], charrette:null},
+  ],
+};
+
+// ---- PEOPLE DATA ----
+const PEOPLE = {
+  // ─────────────────────────────────────────────────────────────
+  // PROFILE PHOTOS — HOW TO ADD THEM
+  // Each person has a photo:'' field. Paste any direct image URL
+  // (or base64 data URI) into that field and it will appear as a
+  // circular headshot in the bio modal, replacing the initials.
+  //
+  // LinkedIn photos require a logged-in session so they cannot be
+  // fetched automatically. To get them:
+  //   1. Log into LinkedIn in a browser
+  //   2. Navigate to the person's profile
+  //   3. Right-click their headshot → "Open image in new tab"
+  //   4. Copy that URL and paste it into their photo:'' field below
+  //
+  // UTK faculty pages at archdesign.utk.edu often have direct
+  // headshot images — check those first as they're publicly accessible.
+  //
+  // Example:
+  //   ccote: {init:'CC', photo:'https://archdesign.utk.edu/wp-content/uploads/2023/cote.jpg', ...}
+  // ─────────────────────────────────────────────────────────────
+  ac:      {init:'AC', color:'linear-gradient(135deg,#FF8200,#C86000)', photo:'', name:'Anja Cordell', role:'Camp Director', bio:'UTK Landscape Architecture alumna, class of 2025. Anja runs all camp operations from logistics to programming, working with the advisors and TAs to make the week work for everyone. If something needs to happen, she makes it happen.', link:'', linkLabel:''},
+  jb1:     {init:'JB', color:'linear-gradient(135deg,#1A6FAA,#145a84)', photo:'', name:'Jessica Bocangel', role:'Academic + Professional Development Advisor', bio:'B.Arch from UTK, 2006, Summa Cum Laude. After graduating she practiced at Design Innovation Architects, working on retail, office, and mixed-use projects for three years. She then led a non-profit initiative focused on housing solutions for people experiencing chronic homelessness, doing that work for nine years before returning to CoA+D to help the next generation of students find their way. She speaks Spanish.', link:'https://archdesign.utk.edu/people/jessica-bocangel/', linkLabel:'UTK Profile'},
+  jb2:     {init:'JB', color:'linear-gradient(135deg,#2E7D46,#1e5e30)', photo:'', name:'Julie Beckman', role:'Director of Student Services', bio:'Julie designed the National 9/11 Pentagon Memorial and the Space Shuttle Columbia Memorial. She has an MArch from Columbia University and a BA from Bryn Mawr College. She co-founded KBAS with partner Keith Kaseman. Her firm received a National Medal of Service from the AIA in 2012. She came to UTK from the University of Pennsylvania and now leads student services, career development, and advising for the college.', link:'https://archdesign.utk.edu/people/julie-beckman/', linkLabel:'UTK Profile'},
+  dm:      {init:'DM', color:'linear-gradient(135deg,#6B3FA0,#4e2880)', photo:'', name:'DeMauri Murray', role:'Academic Advisor', bio:'DeMauri supports CoA+D students across all four programs with a focus on equity, student success, and pathways into the design professions. He works with students from first-year orientation through graduation and beyond.', link:'', linkLabel:''},
+  ms:      {init:'MS', color:'linear-gradient(135deg,#FF8200,#c87030)', photo:'', name:'Macy Steingrube', role:'Teaching Assistant', bio:'Studio facilitator and camp counselor for Groups 05 and 07. Macy supports campers through in-studio sessions, critiques, and daily activities throughout the week.', link:'', linkLabel:''},
+  sb:      {init:'SB', color:'linear-gradient(135deg,#1A6FAA,#1a5080)', photo:'', name:'Sam Brott', role:'Teaching Assistant', bio:'Studio and logistics support across all four discipline days. Sam keeps things running across multiple groups and sessions.', link:'', linkLabel:''},
+  cw:      {init:'CW', color:'linear-gradient(135deg,#E8627A,#C0415A)', photo:'', name:'Cora Williams', role:'Floater · Logistics Support', bio:'Cora handles backend resources, supply runs, and flexible support all week. Whatever needs doing that isn\'t already covered, she covers it.', link:'', linkLabel:''},
+  mj:      {init:'MJ', color:'linear-gradient(135deg,#B88A00,#8a6800)', photo:'', name:'Melani Jimenez', role:'Floater · Logistics Support', bio:'Resource coordination and on-the-ground support throughout the week. Melani makes sure materials, spaces, and people end up where they need to be.', link:'', linkLabel:''},
+  jmagner: {init:'JM', color:'linear-gradient(135deg,#FF8200,#C86000)', photo:'', name:'Jeremy Magner', role:'Assistant Professor of Architecture', bio:'Jeremy served as a Tennessee Architecture Fellow from 2020 to 2022 before becoming an assistant professor. His work challenges the conventional line between designer and builder. He has been an artist-in-residence at Autodesk Pier 9 and worked at Gensler, Morphosis, and Machineous. He co-founded the Refugia Design Cooperative and builds things with robots and people alike.', link:'https://archdesign.utk.edu/directory/jeremy-magner/', linkLabel:'UTK Profile'},
+  mstanley:{init:'MS', color:'linear-gradient(135deg,#1A6FAA,#145a84)', photo:'', name:'Mark Stanley', role:'Assistant Professor of Architecture', bio:'Mark co-founded StudioMARS, a speculative design-research practice. His work studies architecture\'s relationship to larger systems of culture, technology, and ecology. His projects often take the form of experimental representations where architecture is one part of a larger critical project about how we live now.', link:'https://archdesign.utk.edu/directory/mark-stanley/', linkLabel:'UTK Profile'},
+  fhsu:    {init:'FH', color:'linear-gradient(135deg,#2E7D46,#1e5e30)', photo:'', name:'Frances Hsu', role:'Assistant Professor of Architecture', bio:'Frances is a licensed architect and scholar whose work explores architecture and urbanism at a territorial scale. She previously taught at Marywood University, UNC Charlotte, and Aalto University. She worked as a designer at OMA and UN Studio before moving into academia. Her writing has appeared in the Journal of Architectural Education and The Cambridge Architectural Journal.', link:'https://archdesign.utk.edu/', linkLabel:'UTK CoA+D'},
+  swall:   {init:'SW', color:'linear-gradient(135deg,#6B3FA0,#4e2880)', photo:'', name:'Scott Wall', role:'Professor of Architecture', bio:'Scott is a registered architect, author, artist, and teacher who has practiced in Houston, New Orleans, and Knoxville. He taught at Rice, Georgia Tech, and Tulane before joining UTK, where he has been for nearly 20 years. He served as interim director of the School of Architecture from 2021 to 2022.', link:'https://archdesign.utk.edu/directory/scott-wall/', linkLabel:'UTK Profile'},
+  ccote:   {init:'CC', color:'linear-gradient(135deg,#1A6FAA,#145a84)', photo:'', name:'Chris Cote', role:'Assistant Professor of Graphic Design', bio:'Chris got his MFA from RISD and spent years making work that uses public spaces as publishing platforms, blurring the line between creators and audiences. He self-publishes All-Ways-Open, a publication about place that uses images to prompt writers and writers to prompt visual artists. He teaches typography, information design, and the graphic design capstone.', link:'https://archdesign.utk.edu/directory/christopher-cote/', linkLabel:'UTK Profile'},
+  eepstein:{init:'EE', color:'linear-gradient(135deg,#2E7D46,#1e5e30)', photo:'', name:'Everett Epstein', role:'Lecturer, Graphic Design', bio:'Before coming to UTK, Everett worked as a brand designer at Gensler in London, developing environmental graphics and wayfinding for clients including LEGO, Netflix, and Procter and Gamble. He got his MFA from RISD in 2021, where he researched the intersection of web design, typography, and grammar.', link:'https://archdesign.utk.edu/directory/everett-epstein/', linkLabel:'UTK Profile'},
+  kmitchell:{init:'KM', color:'linear-gradient(135deg,#FF8200,#C86000)', photo:'', name:'Kimberly Mitchell', role:'Assistant Professor of Graphic Design', bio:'Kim founded the Design for Care Lab and runs interdisciplinary projects on design, aging, and health. She created FRED, a social robotics project for people with dementia that got national recognition. She has received over $30,000 in internal research funding. Students regularly call her one of the best teachers in the building.', link:'https://archdesign.utk.edu/directory/kimberly-mitchell/', linkLabel:'UTK Profile'},
+  lbrine:  {init:'LB', color:'linear-gradient(135deg,#E8627A,#C0415A)', photo:'', name:'Lindsay Brine', role:'Associate Professor of Practice, Design', bio:'Lindsay is a UTK alumna who came back to teach after 18 years working in agencies. She was Creative Director at Designsensory and got her MFA in Service Design from SCAD. Her work has been featured in Print, GDUSA, and How. She was inducted into the AAF-Knoxville Hall of Fame in 2020. She now researches the intersection of AI and design at UT.', link:'https://archdesign.utk.edu/directory/lindsay-brine/', linkLabel:'UTK Profile'},
+  cstaples:{init:'CS', color:'linear-gradient(135deg,#6B3FA0,#4e2880)', photo:'', name:'Cary Staples', role:'Professor of Graphic Design', bio:'Cary co-founded APP.FARM, an interdisciplinary collaboration studio where students and faculty from design, ecology, microbiology, and education work together to make things. She has NSF-funded research and has built board games and VR experiences that communicate scientific research to broader audiences.', link:'https://archdesign.utk.edu/people/cary-staples/', linkLabel:'UTK Profile'},
+  tarment: {init:'TA', color:'linear-gradient(135deg,#B88A00,#8a6800)', photo:'', name:'Tim Arment', role:'Digital Futures Fellow, School of Design', bio:'Tim got his MFA from the University of Wisconsin-Madison with a focus on digital art, 3D animation, and VR game design. His fine art practice uses software and emerging technology to push at the edges of reality and perception. He co-created the 4D foundations course with Kimberly Mitchell and Chris Cote.', link:'https://archdesign.utk.edu/', linkLabel:'UTK CoA+D'},
+  fdean:   {init:'FD', color:'linear-gradient(135deg,#6B3FA0,#4e2880)', photo:'', name:'Felicia Francine Dean', role:'Assistant Professor of Interior Architecture', bio:'Felicia received a Graham Foundation grant for her research into stone and fabric material identities as a way of understanding space, place, and race. Her work connects materials from Gramolazzo, Italy and Knoxville, Tennessee to explore an underrepresented perspective on the design process. She won the 2024 IDEC Teaching Excellence Award.', link:'https://archdesign.utk.edu/directory/felicia-dean/', linkLabel:'UTK Profile'},
+  hkim:    {init:'HK', color:'linear-gradient(135deg,#1A6FAA,#145a84)', photo:'', name:'Hojung Kim', role:'Assistant Professor of Interior Architecture', bio:'Hojung co-founded the MM Lab and researches material practices in Southeast Asia, looking specifically at how vernacular craft traditions from Indigenous communities survive, adapt to, or get displaced by globalized production. He has done fieldwork in Vietnam documenting brick artisan communities affected by new government regulations.', link:'https://archdesign.utk.edu/directory/hojung-kim/', linkLabel:'UTK Profile'},
+  lteston: {init:'LT', color:'linear-gradient(135deg,#8C4A2F,#6e3520)', photo:'', name:'Liz Teston', role:'Associate Professor of Interior Architecture', bio:'Liz researches public interiority, the politics of design, and how memory and cultural identity shape everyday spaces. She organized the 2023 Public Interiority Symposium at UTK, which brought designers from around the world to examine how interiority extends beyond enclosure into urban space. She got her BFA in Interior Design from SCAD.', link:'https://archdesign.utk.edu/directory/liz-teston/', linkLabel:'UTK Profile'},
+  amadl:   {init:'AM', color:'linear-gradient(135deg,#2E7D46,#1e5e30)', photo:'', name:'Andrew Madl', role:'Assistant Professor of Landscape Architecture', bio:'Andrew is the 2025 Dudley Scholar. His current research project, Wild Data, speculates on a future technology that could shift how we coexist with landscapes entangled in our digital infrastructure. He is writing a book and developing an animated film told from the perspective of a fictional US government organization.', link:'https://archdesign.utk.edu/', linkLabel:'UTK CoA+D'},
+  sbolivar:{init:'SB', color:'linear-gradient(135deg,#1A8A7A,#10605a)', photo:'', name:'Sarah Bolivar', role:'Assistant Professor of Landscape Architecture', bio:'Sarah researches how individual and collective actions can support migrating plants and wildlife and the cultural meaning they carry. She has worked with the Central Park Conservancy, local government in Bellingham, and AECOM. Before UTK she worked with the Oslo office of Snohetta.', link:'https://archdesign.utk.edu/', linkLabel:'UTK CoA+D'},
+};
+
+let curPerson = null;
+let curPersonGroup = [];
+
+// Groups: staff are navigated only among staff, each program's faculty only among that program
+const PERSON_GROUPS = {
+  staff: ['ac','jb1','jb2','dm','ms','sb','cw','mj'],
+  arch:  ['jmagner','mstanley','fhsu','swall'],
+  gd:    ['ccote','eepstein','kmitchell','lbrine','cstaples','tarment'],
+  ia:    ['fdean','hkim','lteston'],
+  la:    ['amadl','sbolivar'],
+};
+
+function openPerson(key, groupKey) {
+  curPerson = key;
+  // Auto-detect group if not provided
+  if (!groupKey) {
+    for (const [g, keys] of Object.entries(PERSON_GROUPS)) {
+      if (keys.includes(key)) { groupKey = g; break; }
+    }
+  }
+  curPersonGroup = PERSON_GROUPS[groupKey] || [key];
+  renderPersonModal();
+  document.getElementById('personModal').classList.add('open');
+}
+
+function renderPersonModal() {
+  const p = PEOPLE[curPerson];
+  const idx = curPersonGroup.indexOf(curPerson);
+  const photoHtml = p.photo
+    ? '<img src="' + p.photo + '" style="width:88px;height:88px;border-radius:50%;object-fit:cover;margin-bottom:14px;box-shadow:0 6px 24px rgba(0,0,0,.18);">'
+    : '<div class="pm-av" style="background:' + p.color + ';">' + p.init + '</div>';
+  const linkHtml = p.link ? '<a class="pm-link" href="' + p.link + '" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>' + p.linkLabel + '</a>' : '';
+  const prevDis = idx === 0 ? 'disabled style="opacity:.3;"' : '';
+  const nextDis = idx === curPersonGroup.length - 1 ? 'disabled style="opacity:.3;"' : '';
+  document.getElementById('pmContent').innerHTML =
+    photoHtml +
+    '<div class="pm-name">' + p.name + '</div>' +
+    '<div class="pm-role">' + p.role + '</div>' +
+    '<div class="pm-bio">' + p.bio + '</div>' +
+    linkHtml +
+    '<div class="pm-nav">' +
+      '<button class="pm-nav-btn" onclick="navPerson(-1)" ' + prevDis + '><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Prev</button>' +
+      '<button class="pm-nav-btn" onclick="navPerson(1)" ' + nextDis + '>Next <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>' +
+    '</div>';
+}
+
+function navPerson(dir) {
+  const idx = curPersonGroup.indexOf(curPerson);
+  const nextKey = curPersonGroup[idx + dir];
+  if (nextKey) { curPerson = nextKey; renderPersonModal(); }
+}
+
+function closePersonModal() {
+  document.getElementById('personModal').classList.remove('open');
+}
+
+// ---- SCHEDULE ----
+let activeDay = 'sunday';
+
+function buildDays() {
+  document.getElementById('dayScroll').innerHTML = DAYS.map(d => `
+    <div class="dc ${d.k===activeDay?'on':''}" style="--tc:${TC[d.k].c}" onclick="selDay('${d.k}',this)">
+      <div class="dc-circle">
+        <div class="dc-date">${d.d}</div>
+        <div class="dc-abbr">${d.a}</div>
+      </div>
+      <div class="dc-lbl">${TC[d.k].name.split(' ').slice(0,2).join(' ')}</div>
+    </div>`).join('');
+}
+
+function renderBanner(day) {
+  const t = TC[day];
+  document.getElementById('trackBanner').innerHTML = `
+    <div class="track-banner" style="background:${t.p};margin:12px 16px 0;">
+      <div class="tb-dot" style="background:${t.c};"></div>
+      <div class="tb-name" style="color:${t.c};">${t.name}</div>
+      <div class="tb-date" style="color:${t.c};">July ${DAYS.find(d=>d.k===day).d}</div>
+    </div>`;
+}
+
+function renderTimeline(day) {
+  const evts = SCHED[day] || [];
+  const tc = TC[day];
+  const evtColor = (type) => type==='meal'||type==='free'||type==='arrival' ? '#A09890' : tc.c;
+  const evtPale  = (type) => type==='meal'||type==='free'||type==='arrival' ? '#EDE8DF' : tc.p;
+  document.getElementById('timeline').innerHTML = evts.map(function(e,i) {
+    const lineDiv = i < evts.length-1 ? '<div class="tl-line"></div>' : '';
+    const tagDiv = (e.type!=='free' && e.type!=='arrival') ? '<div class="tl-tag">' + e.type + '</div>' : '';
+    const timeStr = e.t.replace(' ', '<br>');
+    return '<div class="tl-row" style="--tc:' + evtColor(e.type) + ';--tp:' + evtPale(e.type) + '" onclick="openAct(' + i + ',\'' + day + '\')">' +
+      '<div class="tl-tc">' +
+        '<div class="tl-time">' + timeStr + '</div>' +
+        '<div class="tl-dot"></div>' +
+        lineDiv +
+      '</div>' +
+      '<div class="tl-ev">' +
+        '<div class="tl-name">' + e.n + '</div>' +
+        '<div class="tl-loc">' + e.loc + '</div>' +
+        tagDiv +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function openAct(i, day) {
+  var e = SCHED[day][i];
+  var tc = TC[day];
+  var matsHtml = '';
+  if (e.mats && e.mats.length) {
+    matsHtml = '<div class="sh-slabel">Bring</div>';
+    for (var mi = 0; mi < e.mats.length; mi++) {
+      matsHtml += '<div class="mat-row"><div class="mat-dot" style="background:' + tc.c + ';"></div><div class="mat-text">' + e.mats[mi] + '</div></div>';
+    }
+  }
+  var charrBtn = '';
+  if (e.charrette) {
+    charrBtn = '<button type="button" class="charr-open-btn" data-charrette="' + e.charrette + '" style="width:100%;background:' + tc.p + ';border:1.5px solid rgba(0,0,0,.1);color:' + tc.c + ';border-radius:var(--r);padding:13px;font-family:var(--font-d);font-size:18px;font-weight:800;letter-spacing:.04em;cursor:pointer;margin-top:14px;">View Charrette Brief</button>';
+  }
+  var body = e.desc.replace(/\n/g, '<br><br>');
+  document.getElementById('actContent').innerHTML =
+    '<div style="display:inline-block;border-radius:999px;padding:4px 12px;font-family:var(--font-m);font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:' + tc.p + ';color:' + tc.c + ';margin-bottom:12px;">' + e.type + '</div>' +
+    '<div class="sh-title">' + e.n + '</div>' +
+    '<div class="sh-meta">' + e.t + ' &nbsp;&middot;&nbsp; ' + e.loc + '</div>' +
+    '<div class="sh-body">' + body + '</div>' +
+    matsHtml + charrBtn;
+  if (e.loc && e.loc.indexOf('Poll') !== -1) {
+    document.getElementById('actContent').innerHTML +=
+      '<button type="button" class="poll-open-btn" style="width:100%;background:var(--orange);border:none;color:white;border-radius:var(--r);padding:13px;font-family:var(--font-d);font-size:18px;font-weight:800;letter-spacing:.04em;cursor:pointer;margin-top:14px;">Open Tonight\'s Poll</button>';
+  }
+  openOverlay('actOverlay');
+}
+
+function selDay(key, el) {
+  activeDay = key;
+  document.querySelectorAll('.dc').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  renderBanner(key);
+  renderTimeline(key);
+}
+
+// ---- NAV ----
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.getElementById('nav-'+name).classList.add('on');
+  const fab = document.getElementById('galleryFab');
+  if (fab) fab.style.display = (name === 'gallery') ? 'flex' : 'none';
+  // scroll the inner canvas on desktop, viewport on mobile
+  const canvas = document.querySelector('.phone-screen > .app-canvas');
+  if (canvas && getComputedStyle(canvas).overflowY === 'auto') {
+    canvas.scrollTop = 0;
+  } else {
+    window.scrollTo(0, 0);
+  }
+}
+
+// ---- OVERLAYS ----
+function openOverlay(id) { document.getElementById(id).classList.add('open'); }
+function closeOverlay(id) { document.getElementById(id).classList.remove('open'); }
+
+// ---- ABOUT ----
+function aTab(panel, el) {
+  document.querySelectorAll('.at').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.about-panel').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('panel-'+panel).classList.add('on');
+}
+
+function toggleProg(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+
+// ---- GALLERY FEED ----
+const LB_SRCS = ['assets/gallery/0.jpg', 'assets/gallery/1.jpg', 'assets/gallery/2.jpg', 'assets/gallery/3.jpg', 'assets/gallery/4.jpg', 'assets/gallery/5.jpg', 'assets/gallery/6.jpg', 'assets/gallery/7.jpg', 'assets/gallery/8.jpg'];
+const LB_CAPS = ["We painted The Rock. SDC was here.", "Cardboard, a light, and a few good ideas.", "Gone fishing.", "This is making my brain explode.", "Getting a little too into it.", "", "Scene 02, Take 01. SDC '25.", "", ""];
+const LB_TRACKS = ["Camp \u00b7 Day 1", "Architecture \u00b7 Day 1", "Landscape \u00b7 Day 3", "Interior Arch \u00b7 Day 4", "Camp \u00b7 Day 1", "Interior Arch \u00b7 Day 4", "Final \u00b7 Day 5", "Graphic Design \u00b7 Day 2", "Graphic Design \u00b7 Day 2"];
+let lbIdx = 0;
+
+function openLightbox(i) {
+  lbIdx = i;
+  renderLightbox();
+  document.getElementById('lbOverlay').classList.add('open');
+}
+
+function renderLightbox() {
+  document.getElementById('lbImg').src = LB_SRCS[lbIdx];
+  document.getElementById('lbCaption').textContent = LB_CAPS[lbIdx] || '';
+  document.getElementById('lbTag').textContent = LB_TRACKS[lbIdx];
+}
+
+function lbNav(dir) {
+  lbIdx = (lbIdx + dir + LB_SRCS.length) % LB_SRCS.length;
+  renderLightbox();
+}
+
+function closeLightbox() {
+  document.getElementById('lbOverlay').classList.remove('open');
+}
+
+function heartPost(btn) {
+  btn.classList.toggle('on');
+}
+
+// ---- GALLERY ----
+function filt(el) {
+  document.querySelectorAll('#galleryFilters .fp').forEach(function(b){ b.classList.remove('on'); });
+  el.classList.add('on');
+  var f = el.getAttribute('data-filter') || 'all';
+  document.querySelectorAll('#feedContainer .fd-post').forEach(function(post) {
+    post.style.display = (f === 'all' || post.getAttribute('data-track') === f) ? '' : 'none';
+  });
+}
+function like(btn) {
+  btn.classList.toggle('on');
+  const n = parseInt(btn.querySelector('.lc').textContent);
+  btn.querySelector('.lc').textContent = btn.classList.contains('on') ? n+1 : n-1;
+}
+
+// ---- POLL ----
+function pickPoll(el) {
+  document.querySelectorAll('.poll-opt').forEach(o=>o.classList.remove('on'));
+  el.classList.add('on');
+}
+function submitPoll() { closeOverlay('pollOverlay'); }
+
+// ---- CHAT ----
+function sendHomeMsg() {
+  const input = document.getElementById('homeChatInput');
+  const txt = input.value.trim();
+  if (!txt) return;
+  const msgs = document.getElementById('homeChatMsgs');
+  const now = new Date();
+  const time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  msgs.innerHTML += `<div class="msg me"><div class="msg-av" style="background:linear-gradient(135deg,#FF8200,#C86000);">JC</div><div class="msg-body"><div class="msg-name">You</div><div class="msg-bub">${txt}</div><div class="msg-time">${time}</div></div></div>`;
+  input.value = '';
+  msgs.scrollTop = msgs.scrollHeight;
+  // Mirror to full chat
+  const full = document.getElementById('fullChatMsgs');
+  if (full) { full.innerHTML = msgs.innerHTML; full.scrollTop = full.scrollHeight; }
+}
+
+function sendFullMsg() {
+  const input = document.getElementById('fullChatInput');
+  const txt = input.value.trim();
+  if (!txt) return;
+  const msgs = document.getElementById('fullChatMsgs');
+  const now = new Date();
+  const time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  msgs.innerHTML += `<div class="msg me"><div class="msg-av" style="background:linear-gradient(135deg,#FF8200,#C86000);">JC</div><div class="msg-body"><div class="msg-name">You</div><div class="msg-bub">${txt}</div><div class="msg-time">${time}</div></div></div>`;
+  input.value = '';
+  msgs.scrollTop = msgs.scrollHeight;
+  // Mirror to home chat
+  const home = document.getElementById('homeChatMsgs');
+  if (home) { home.innerHTML = msgs.innerHTML; home.scrollTop = home.scrollHeight; }
+}
+
+function sendMsg() {
+  const input = document.getElementById('chatInput');
+  const txt = input.value.trim();
+  if (!txt) return;
+  const msgs = document.getElementById('chatMsgs');
+  const now = new Date();
+  const time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  msgs.innerHTML += `
+    <div class="msg me">
+      <div class="msg-av" style="background:linear-gradient(135deg,#FF8200,#C86000);">JC</div>
+      <div class="msg-body">
+        <div class="msg-name">You</div>
+        <div class="msg-bub">${txt}</div>
+        <div class="msg-time">${time}</div>
+      </div>
+    </div>`;
+  input.value = '';
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+var _hci = document.getElementById('homeChatInput');
+if (_hci) _hci.addEventListener('keydown', function(e) { if (e.key === 'Enter') sendHomeMsg(); });
+var _fci = document.getElementById('fullChatInput');
+if (_fci) _fci.addEventListener('keydown', function(e) { if (e.key === 'Enter') sendFullMsg(); });
+
+
+const CHARRETTES = {
+  mon_1: {
+    day: 'Monday', num: '01', title: 'Downtown Exploration',
+    track: 'Architecture', tc: '#FF8200', tp: '#FFF3E6',
+    intro: 'With your assigned group explore downtown Knoxville. As designers, we are constantly looking at the world around us for inspiration in our own work. Each of you should document the following using your phone camera.',
+    tasks: [
+      '5 different fonts in signage or storefronts',
+      '3 places where hardscape meets softscape (different examples each)',
+      '6 interesting gutters, drainage features, or edges',
+      '4 different window types',
+      '10 doors',
+      '4 patterns on surfaces or materials',
+      '6 times you see the color yellow',
+      '4 street lights',
+      '10 signs',
+      '4 places where people can sit without buying anything',
+      '5 thresholds between spaces',
+      '3 instances of the color blue',
+      '2 underpasses',
+      '4 places where different hardscape materials meet each other',
+    ],
+    notes: 'Lunch while downtown. Document everything. You\'ll use these observations in Charrette 02.'
+  },
+  mon_2: {
+    day: 'Monday', num: '02', title: 'Massing Model',
+    track: 'Architecture', tc: '#FF8200', tp: '#FFF3E6',
+    intro: 'Using your site photographs and sketches from this morning, build a small abstract massing model. This is not a realistic model of a real building. It is a study of relationships: mass and void, solid and transparent, heavy and light.',
+    tasks: [
+      'Build a base that represents your site (8" x 8" max)',
+      'Create at least 3 distinct masses using cardboard or foam',
+      'Cut at least one void through a solid mass',
+      'Show one moment of transparency (trace paper, cut-out, or gap)',
+      'Consider how light enters the model from above and the side',
+      'Photograph your model from 3 angles before the jam session',
+    ],
+    notes: 'Your group\'s color prompt should influence at least one decision in your model. Be ready to say which decision and why at the jam session.'
+  },
+  tue_1: {
+    day: 'Tuesday', num: '03', title: 'Type + Image',
+    track: 'Graphic Design', tc: '#1A6FAA', tp: '#EAF4FB',
+    intro: 'You have been given a single word. Using only black marker on white paper, design a composition that communicates what the word means, not just what it spells. No computers. The page is your only tool.',
+    tasks: [
+      'Make 10 thumbnail sketches (no bigger than 3" x 3") before committing to anything',
+      'Try at least 3 very different approaches: one typographic only, one image only, one mixed',
+      'Work at full scale (8.5" x 11") for your final 3 compositions',
+      'Play with scale, weight, and negative space',
+      'Consider what the word feels like, not just what it means',
+      'No rulers. Imperfection is part of the work.',
+    ],
+    notes: 'Your group\'s word is assigned by your TA at the start of the session. You\'ll reveal it at the jam session and the group will guess based on your compositions alone.'
+  },
+  tue_2: {
+    day: 'Tuesday', num: '04', title: 'Color System',
+    track: 'Graphic Design', tc: '#1A6FAA', tp: '#EAF4FB',
+    intro: 'Take your three strongest compositions from this morning and extend them into a system using color. A system means the pieces feel like they belong together. This afternoon is about restraint: more colors is not better.',
+    tasks: [
+      'Choose a palette of no more than 3 colors (plus black and white)',
+      'Apply your palette to all three compositions consistently',
+      'Create one additional piece that uses your palette with no text at all',
+      'Test your palette: does it still work in grayscale? (photograph and check)',
+      'Mount or arrange your 4 pieces so they read as a set',
+      'Write one sentence (by hand, on the sheet) that names what holds the system together',
+    ],
+    notes: 'Your group\'s color prompt from Monday should be your dominant hue, or deliberately absent. Either choice is valid but you need a reason.'
+  },
+  wed_1: {
+    day: 'Wednesday', num: '05', title: 'Site Systems',
+    track: 'Landscape Architecture', tc: '#2E7D46', tp: '#EAF5EE',
+    intro: 'Go outside and find a site on or near campus. Today you are not drawing what the site looks like. You are mapping what the site does. Every site is a system of flows, forces, and patterns. Your job is to make that visible.',
+    tasks: [
+      'Draw a plan diagram showing water flow direction across your site',
+      'Map 5 or more human movement paths through or around your site',
+      'Mark where shade falls at noon (look up, observe shadows)',
+      'Identify 3 edge conditions (where one type of surface meets another)',
+      'Note 2 places where plants or growth are pushing through hardscape',
+      'Count and mark 4 places where people choose to pause or linger',
+      'Take at least 8 photographs that document your findings',
+    ],
+    notes: 'Bring your diagrams to the mid-week critique this afternoon. You don\'t need to make them beautiful. Make them clear.'
+  },
+  wed_2: {
+    day: 'Wednesday', num: '06', title: 'Mid-Week Critique',
+    track: 'Landscape Architecture', tc: '#2E7D46', tp: '#EAF5EE',
+    intro: 'Pin up your work from Monday, Tuesday, and this morning. You are not presenting a finished project. You are showing process, thinking, and change. The critique is a conversation, not a performance.',
+    tasks: [
+      'Pin all work in chronological order, left to right',
+      'Place a short hand-written label on each piece: day and title only',
+      'Be ready to talk for 2 minutes about one thing that surprised you',
+      'Ask at least one genuine question about someone else\'s work',
+      'Listen to every critique, not just your own',
+    ],
+    notes: 'The afternoon charrette will be informed by what you hear in the critique. Pay attention to the feedback you get on your weakest work, not just your strongest.'
+  },
+  thu_1: {
+    day: 'Thursday', num: '07', title: 'Space + Light',
+    track: 'Interior Architecture', tc: '#6B3FA0', tp: '#F2ECFA',
+    intro: 'Design a single room. Not a building, not a floor plan of a house: one room. You are designing an experience, not just a container. Think about what it feels like to enter, to move through, and to stay.',
+    tasks: [
+      'Draw the room in section (a vertical cut through), not plan',
+      'Show where and how light enters at two times of day (morning and afternoon)',
+      'Indicate one primary material for the floor, one for the walls',
+      'Draw one human figure to establish scale',
+      'Add a second section cut from a perpendicular direction',
+      'Label: entry, light source, primary material, and a name for the room\'s mood',
+    ],
+    notes: 'The room does not have to be realistic or buildable. It should be experiential. Design for how it feels, not just how it looks.'
+  },
+  thu_2: {
+    day: 'Thursday', num: '08', title: 'Material + Atmosphere',
+    track: 'Interior Architecture', tc: '#6B3FA0', tp: '#F2ECFA',
+    intro: 'Take one corner of the room you designed this morning and build it. This is a small physical model, maybe 6" x 6" x 6". You are studying one material decision and how it interacts with light. Use your phone torch as the light source.',
+    tasks: [
+      'Build one corner of your room at approximately 1:12 scale (1" = 1 foot)',
+      'Choose one material to feature: matte cardboard, trace paper, reflective foil, textured paper',
+      'Cut at least one opening to let "light" in (your phone torch)',
+      'Photograph the model with the torch at 3 different positions',
+      'Choose the photograph where the light is doing the most interesting thing',
+      'Write one sentence on the back of that photo: what the light is doing and why it matters',
+    ],
+    notes: 'This model does not need to be precise. It needs to be honest about one material decision. Upload your best photo tonight before the 9 PM deadline.'
+  },
+};
+
+function openCharrette(key) {
+  const c = CHARRETTES[key];
+  if (!c) return;
+  const tasksHtml = c.tasks.map(t => '<li>' + t + '</li>').join('');
+  const notesHtml = c.notes ? '<div class="charr-section">Note</div><div class="charr-body">' + c.notes + '</div>' : '';
+  document.getElementById('actContent').innerHTML =
+    '<div class="charr-badge" style="background:' + c.tp + ';color:' + c.tc + ';">' + c.track + ' · ' + c.day + '</div>' +
+    '<div class="charr-day">Charrette ' + c.num + '</div>' +
+    '<div class="charr-title">' + c.title + '</div>' +
+    '<div class="charr-section">Overview</div>' +
+    '<div class="charr-body">' + c.intro + '</div>' +
+    '<div class="charr-section">Your Tasks</div>' +
+    '<ul class="charr-list" style="--tc:' + c.tc + ';">' + tasksHtml + '</ul>' +
+    notesHtml;
+  openOverlay('actOverlay');
+}
+
+// ---- INIT ----
+document.getElementById('actContent').addEventListener('click', function(ev) {
+  var c = ev.target.closest('[data-charrette]');
+  if (c && c.dataset.charrette) { openCharrette(c.dataset.charrette); return; }
+  if (ev.target.closest('.poll-open-btn')) { closeOverlay('actOverlay'); openOverlay('pollOverlay'); }
+});
+
+buildDays();
+renderBanner(activeDay);
+renderTimeline(activeDay);
+// Sync FAB visibility with the initially-active page (home by default → hidden)
+(function(){
+  const fab = document.getElementById('galleryFab');
+  const active = document.querySelector('.page.active');
+  if (fab && active) fab.style.display = (active.id === 'page-gallery') ? 'flex' : 'none';
+})();
+</script>
+
+<!-- Full-screen chat overlay -->
+<div class="fullchat-overlay" id="fullChatOverlay">
+  <div class="fullchat-header">
+    <button class="fullchat-back" onclick="closeOverlay('fullChatOverlay')">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="chat-head-av">7</div>
+    <div>
+      <div class="chat-head-name">Group 07</div>
+      <div class="chat-head-sub">Macy Steingrube · 14 members</div>
+    </div>
+  </div>
+  <div class="fullchat-msgs" id="fullChatMsgs">
+    <div class="msg msg-ta">
+      <div class="msg-av" style="background:var(--orange);">MS</div>
+      <div class="msg-body">
+        <div class="msg-name">Macy (TA)</div>
+        <div class="msg-bub">Good morning everyone! We meet at the A+A Building entrance at 9. Bring your sketchbooks.</div>
+        <div class="msg-time">8:14 AM</div>
+      </div>
+    </div>
+    <div class="msg">
+      <div class="msg-av" style="background:var(--blue);">KL</div>
+      <div class="msg-body">
+        <div class="msg-name">Kai L.</div>
+        <div class="msg-bub">Is the entrance on Volunteer Blvd or the other side?</div>
+        <div class="msg-time">8:22 AM</div>
+      </div>
+    </div>
+    <div class="msg msg-ta">
+      <div class="msg-av" style="background:var(--orange);">MS</div>
+      <div class="msg-body">
+        <div class="msg-name">Macy (TA)</div>
+        <div class="msg-bub">Volunteer Blvd, main doors. Look for the orange banner.</div>
+        <div class="msg-time">8:23 AM</div>
+      </div>
+    </div>
+    <div class="msg me">
+      <div class="msg-av" style="background:linear-gradient(135deg,var(--orange),var(--orange-dk));">JC</div>
+      <div class="msg-body">
+        <div class="msg-name">You</div>
+        <div class="msg-bub">On my way!</div>
+        <div class="msg-time">8:31 AM</div>
+      </div>
+    </div>
+  </div>
+  <div class="fullchat-input-row">
+    <input class="chat-input" id="fullChatInput" type="text" placeholder="Message Group 07...">
+    <button class="chat-send" onclick="sendFullMsg()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+  </div>
+</div>
+</div><!-- /app-canvas -->
+<button class="fab" id="galleryFab" onclick="openOverlay('uploadOverlay')" style="display:none" aria-label="Upload work">
+  <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+</button>
+<nav class="nav">
+  <button class="nb" id="nav-schedule" onclick="showPage('schedule')">
+    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <span>Schedule</span>
+  </button>
+  <button class="nb" id="nav-gallery" onclick="showPage('gallery')">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    <span>Gallery</span>
+  </button>
+  <button class="nb home-btn on" id="nav-home" onclick="showPage('home')">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+  </button>
+  <button class="nb" id="nav-profile" onclick="showPage('profile')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg>
+    <span>Profile</span>
+  </button>
+  <button class="nb" id="nav-about" onclick="showPage('about')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span>About</span>
+  </button>
+</nav>
+</div><!-- /phone-screen --></div><!-- /phone-bezel --></div><!-- /phone-stage -->
+
+</body>
+</html>
